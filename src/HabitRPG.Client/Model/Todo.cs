@@ -9,7 +9,6 @@ namespace HabitRPG.Client.Model
     public override string Type
     {
       get { return "todo"; }
-      set { throw new NotImplementedException(); }
     }
 
     [JsonProperty("completed")]
