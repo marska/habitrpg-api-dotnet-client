@@ -19,7 +19,7 @@ namespace HabitRPG.Client
       _habitRpgConfiguration = habitRpgConfiguration;
     }
 
-    public async Task<Model.Task> CreateTask(Model.Task task)
+    public async Task<Model.Todo> CreateTodo(Model.Todo task)
     {
       using (var client = new HttpClient())
       {
@@ -35,7 +35,7 @@ namespace HabitRPG.Client
 
           response.EnsureSuccessStatusCode();
 
-          Task<Model.Task> responseContent = response.Content.ReadAsAsync<Model.Task>();
+          var responseContent = response.Content.ReadAsAsync<Model.Todo>();
 
           return responseContent.Result;
         }
