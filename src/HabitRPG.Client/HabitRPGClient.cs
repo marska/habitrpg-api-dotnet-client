@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using HabitRPG.Client.Model;
 
 namespace HabitRPG.Client
 {
@@ -19,7 +20,7 @@ namespace HabitRPG.Client
       _habitRpgConfiguration = habitRpgConfiguration;
     }
 
-    public async Task<Model.Todo> CreateTodo(Model.Todo task)
+    public async Task<Todo> CreateTodo(Todo task)
     {
       using (var client = new HttpClient())
       {
@@ -29,22 +30,13 @@ namespace HabitRPG.Client
         client.DefaultRequestHeaders.Add("x-api-user", _habitRpgConfiguration.UserId.ToString());
         client.DefaultRequestHeaders.Add("x-api-key", _habitRpgConfiguration.ApiToken.ToString());
 
-        try
-        {
-          var response = await client.PostAsJsonAsync("api/v2/user/tasks", task);
+        var response = await client.PostAsJsonAsync("api/v2/user/tasks", task);
 
-          response.EnsureSuccessStatusCode();
+        response.EnsureSuccessStatusCode();
 
-          var responseContent = response.Content.ReadAsAsync<Model.Todo>();
+        var responseContent = response.Content.ReadAsAsync<Todo>();
 
-          return responseContent.Result;
-        }
-        catch (HttpRequestException e)
-        {
-          //todo: catch exceptions
-          Console.WriteLine(e.Message);
-          throw;
-        }
+        return responseContent.Result;
       }
     }
   }
