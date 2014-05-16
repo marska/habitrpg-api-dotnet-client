@@ -7,7 +7,9 @@ Simple .NET HabitRPG Client Library
 
 To install HabitRPG.Client, run the following command in the [Package Manager Console](https://www.nuget.org/packages/HabitRPG.Client/)
 
+```
 Install-Package HabitRPG.Client -Pre
+```
 
 # How to use
 
