@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
-using HabitRPG.Client.Model;
 
 namespace HabitRPG.Client
 {
   public interface IHabitRPGClient
   {
-    Task<Todo> CreateTodo(Todo task);
+    Task<T> CreateTask<T>(T task) where T : Model.Task;
   }
 }

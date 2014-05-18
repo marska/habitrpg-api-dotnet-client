@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using HabitRPG.Client.Model;
+using Task = HabitRPG.Client.Model.Task;
 
 namespace HabitRPG.Client
 {
@@ -20,7 +20,7 @@ namespace HabitRPG.Client
       _habitRpgConfiguration = habitRpgConfiguration;
     }
 
-    public async Task<Todo> CreateTodo(Todo task)
+    public async Task<T> CreateTask<T>(T task) where T : Task
     {
       using (var client = new HttpClient())
       {
@@ -34,7 +34,7 @@ namespace HabitRPG.Client
 
         response.EnsureSuccessStatusCode();
 
-        var responseContent = response.Content.ReadAsAsync<Todo>();
+        var responseContent = response.Content.ReadAsAsync<T>();
 
         return responseContent.Result;
       }

@@ -30,7 +30,7 @@ namespace HabitRPG.Client.Test
       var todo = GetHabitTodo();
 
       // Action
-      var response = await _habitRpgService.CreateTodo(todo);
+      var response = await _habitRpgService.CreateTask(todo);
 
       // Verify the result
       Assert.AreEqual(todo.Type, response.Type);
@@ -81,6 +81,7 @@ namespace HabitRPG.Client.Test
         Date = DateTime.Now,
         CollapseChecklist = true
       };
+
       return habitTask;
     }
   }
