@@ -57,7 +57,11 @@
     <Compile Include="Model\Broken.cs" />
     <Compile Include="Model\Challenge.cs" />
     <Compile Include="Model\Checklist.cs" />
+    <Compile Include="Model\Daily.cs" />
     <Compile Include="Model\Difficulty.cs" />
+    <Compile Include="Model\Habit.cs" />
+    <Compile Include="Model\Repeat.cs" />
+    <Compile Include="Model\Reward.cs" />
     <Compile Include="Model\Task.cs" />
     <Compile Include="Model\Todo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

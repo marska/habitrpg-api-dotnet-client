@@ -5,7 +5,7 @@ using Newtonsoft.Json.Converters;
 
 namespace HabitRPG.Client.Model
 {
-  public abstract class Task
+  public class Task
   {
     [JsonProperty("id")]
     public Guid Id { get; set; }
@@ -36,6 +36,6 @@ namespace HabitRPG.Client.Model
     public List<Challenge> Challenge { get; set; }
 
     [JsonProperty("type")]
-    public abstract string Type { get; }
+    public virtual string Type { get; private set; }
   }
 }
