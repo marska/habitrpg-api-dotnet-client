@@ -28,11 +28,11 @@ var habitTask = new Todo
   Text = "My todo" 
 };
 
-var response = await _habitRpgService.CreateTodo(todo);
+var response = await _habitRpgService.CreateTask(todo);
 ```
 
 # Implemented methods
 
 ```cs
-Task<Todo> CreateTodo(Todo task);
+Task<T> CreateTask<T>(T task) where T : Model.Task;
 ```
