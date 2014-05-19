@@ -31,8 +31,10 @@ var habitTask = new Todo
 var response = await _habitRpgService.CreateTask(todo);
 ```
 
-# Implemented methods
+# Methods
 
 ```cs
 Task<T> CreateTask<T>(T task) where T : Model.Task;
+
+Task<List<Model.Task>> GetTasks();
 ```
