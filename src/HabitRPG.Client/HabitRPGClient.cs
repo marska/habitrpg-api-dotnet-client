@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -23,7 +24,12 @@ namespace HabitRPG.Client
 
     public async Task<T> CreateTask<T>(T task) where T : Task
     {
-      using (var client = new HttpClient())
+      var clientHandler = new HttpClientHandler
+      {
+        Proxy = _habitRpgConfiguration.Proxy
+      };
+
+      using (var client = new HttpClient(clientHandler))
       {
         client.BaseAddress = _habitRpgConfiguration.ServiceUri;
         client.DefaultRequestHeaders.Accept.Clear();
@@ -43,7 +49,12 @@ namespace HabitRPG.Client
 
     public async Task<List<Task>> GetTasks()
     {
-      using (var client = new HttpClient())
+      var clientHandler = new HttpClientHandler
+      {
+        Proxy = _habitRpgConfiguration.Proxy
+      };
+
+      using (var client = new HttpClient(clientHandler))
       {
         client.BaseAddress = _habitRpgConfiguration.ServiceUri;
         client.DefaultRequestHeaders.Accept.Clear();

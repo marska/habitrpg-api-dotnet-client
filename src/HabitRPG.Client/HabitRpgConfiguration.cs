@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 
 namespace HabitRPG.Client
 {
@@ -9,5 +10,7 @@ namespace HabitRPG.Client
     public Guid UserId { get; set; }
 
     public Uri ServiceUri { get; set; }
+
+    public IWebProxy Proxy { get; set; }
   }
 }
