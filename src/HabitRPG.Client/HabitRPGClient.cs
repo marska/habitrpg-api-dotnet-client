@@ -23,6 +23,11 @@ namespace HabitRPG.Client
 
     public async Task<T> CreateTask<T>(T task) where T : Task
     {
+      if (task == null)
+      {
+        throw new ArgumentNullException("task");
+      }
+
       var clientHandler = new HttpClientHandler
       {
         Proxy = _habitRpgConfiguration.Proxy
@@ -73,6 +78,11 @@ namespace HabitRPG.Client
 
     public async Task<T> GetTask<T>(string id) where T : Task
     {
+      if (string.IsNullOrWhiteSpace(id))
+      {
+        throw new ArgumentNullException("id");
+      }
+
       var clientHandler = new HttpClientHandler
       {
         Proxy = _habitRpgConfiguration.Proxy
@@ -98,6 +108,16 @@ namespace HabitRPG.Client
 
     public async Task<object> ScoreTask(string id, string direction)
     {
+      if (id == null)
+      {
+        throw new ArgumentNullException("id");
+      }
+
+      if (direction == null)
+      {
+        throw new ArgumentNullException("direction");
+      }
+
       var clientHandler = new HttpClientHandler
       {
         Proxy = _habitRpgConfiguration.Proxy
