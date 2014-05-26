@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using HabitRPG.Client.Model;
 using NUnit.Framework;
 using Attribute = HabitRPG.Client.Model.Attribute;
+using Task = HabitRPG.Client.Model.Task;
 
 namespace HabitRPG.Client.Test
 {
@@ -11,7 +14,7 @@ namespace HabitRPG.Client.Test
   public class HabitRPGClientIntegrationTests
   {
     private readonly IHabitRPGClient _habitRpgService;
-    
+
     public HabitRPGClientIntegrationTests()
     {
       var configuration = new HabitRpgConfiguration()
@@ -34,20 +37,12 @@ namespace HabitRPG.Client.Test
       var response = await _habitRpgService.CreateTask(todo);
 
       // Verify the result
-      Assert.AreEqual(todo.Type, response.Type);
-      Assert.AreEqual(todo.Id, response.Id);
-      Assert.AreEqual(todo.DateCreated, response.DateCreated);
-      Assert.AreEqual(todo.Text, response.Text);
-      Assert.AreEqual(todo.Notes, response.Notes);
-      Assert.AreEqual(todo.Tags.Any().GetHashCode(), response.Tags.Any().GetHashCode());
-      Assert.AreEqual(todo.Value, response.Value);
-      Assert.AreEqual(todo.Priority, response.Priority);
-      Assert.AreEqual(todo.Attribute, response.Attribute);
-      Assert.AreEqual(todo.Challenge.Any().GetHashCode(), response.Challenge.Any().GetHashCode());
+      AssertTask(todo, response);
 
       Assert.AreEqual(todo.Completed, response.Completed);
       Assert.AreEqual(todo.Archived, response.Archived);
-      Assert.AreEqual(todo.Checklist.Any().GetHashCode(), response.Checklist.Any().GetHashCode());
+      Assert.AreEqual(todo.Checklist.First().Id, response.Checklist.First().Id);
+      Assert.AreEqual(todo.Checklist.First().Text, response.Checklist.First().Text);
       Assert.AreEqual(todo.DateCompleted, response.DateCompleted);
       Assert.AreEqual(todo.Date, response.Date);
       Assert.AreEqual(todo.CollapseChecklist, response.CollapseChecklist);
@@ -63,20 +58,12 @@ namespace HabitRPG.Client.Test
       var response = await _habitRpgService.CreateTask(habit);
 
       // Verify the result
-      Assert.AreEqual(habit.Type, response.Type);
-      Assert.AreEqual(habit.Id, response.Id);
-      Assert.AreEqual(habit.DateCreated, response.DateCreated);
-      Assert.AreEqual(habit.Text, response.Text);
-      Assert.AreEqual(habit.Notes, response.Notes);
-      Assert.AreEqual(habit.Tags.Any().GetHashCode(), response.Tags.Any().GetHashCode());
-      Assert.AreEqual(habit.Value, response.Value);
-      Assert.AreEqual(habit.Priority, response.Priority);
-      Assert.AreEqual(habit.Attribute, response.Attribute);
-      Assert.AreEqual(habit.Challenge.Any().GetHashCode(), response.Challenge.Any().GetHashCode());
+      AssertTask(habit, response);
 
       Assert.AreEqual(habit.Down, response.Down);
       Assert.AreEqual(habit.Up, response.Up);
-      Assert.AreEqual(habit.History.Any().GetHashCode(), response.History.Any().GetHashCode());
+      Assert.AreEqual(habit.History.First().Date.ToString(CultureInfo.InvariantCulture), response.History.First().Date.ToString(CultureInfo.InvariantCulture));
+      Assert.AreEqual(habit.History.First().Value, response.History.First().Value);
     }
 
     [Test]
@@ -89,22 +76,15 @@ namespace HabitRPG.Client.Test
       var response = await _habitRpgService.CreateTask(daily);
 
       // Verify the result
-      Assert.AreEqual(daily.Type, response.Type);
-      Assert.AreEqual(daily.Id, response.Id);
-      Assert.AreEqual(daily.DateCreated, response.DateCreated);
-      Assert.AreEqual(daily.Text, response.Text);
-      Assert.AreEqual(daily.Notes, response.Notes);
-      Assert.AreEqual(daily.Tags.Any().GetHashCode(), response.Tags.Any().GetHashCode());
-      Assert.AreEqual(daily.Value, response.Value);
-      Assert.AreEqual(daily.Priority, response.Priority);
-      Assert.AreEqual(daily.Attribute, response.Attribute);
-      Assert.AreEqual(daily.Challenge.Any().GetHashCode(), response.Challenge.Any().GetHashCode());
+      AssertTask(daily, response);
 
-      Assert.AreEqual(daily.History.Any().GetHashCode(), response.History.Any().GetHashCode());
+      Assert.AreEqual(daily.History.First().Date.ToString(CultureInfo.InvariantCulture), response.History.First().Date.ToString(CultureInfo.InvariantCulture));
+      Assert.AreEqual(daily.History.First().Value, response.History.First().Value);
       Assert.AreEqual(daily.Completed, response.Completed);
       Assert.AreEqual(daily.Repeat.Friday, response.Repeat.Friday);
       Assert.AreEqual(daily.CollapseChecklist, response.CollapseChecklist);
-      Assert.AreEqual(daily.Checklist.Any().GetHashCode(), response.Checklist.Any().GetHashCode());
+      Assert.AreEqual(daily.Checklist.First().Id, response.Checklist.First().Id);
+      Assert.AreEqual(daily.Checklist.First().Text, response.Checklist.First().Text);
       Assert.AreEqual(daily.Streak, response.Streak);
     }
 
@@ -118,16 +98,7 @@ namespace HabitRPG.Client.Test
       var response = await _habitRpgService.CreateTask(reward);
 
       // Verify the result
-      Assert.AreEqual(reward.Type, response.Type);
-      Assert.AreEqual(reward.Id, response.Id);
-      Assert.AreEqual(reward.DateCreated, response.DateCreated);
-      Assert.AreEqual(reward.Text, response.Text);
-      Assert.AreEqual(reward.Notes, response.Notes);
-      Assert.AreEqual(reward.Tags.Any().GetHashCode(), response.Tags.Any().GetHashCode());
-      Assert.AreEqual(reward.Value, response.Value);
-      Assert.AreEqual(reward.Priority, response.Priority);
-      Assert.AreEqual(reward.Attribute, response.Attribute);
-      Assert.AreEqual(reward.Challenge.Any().GetHashCode(), response.Challenge.Any().GetHashCode());
+      AssertTask(reward, response);
     }
 
     [Test]
@@ -144,13 +115,55 @@ namespace HabitRPG.Client.Test
       Assert.GreaterOrEqual(response.Count, 1);
     }
 
+    [Test]
+    public async void Should_return_daily_task()
+    {
+      // Setup
+      Daily daily = CreateDaily();
+      await _habitRpgService.CreateTask(daily);
+
+      // Action
+      Daily response = await _habitRpgService.GetTask<Daily>(daily.Id);
+
+      // Verify the result
+      AssertTask(daily, response);
+
+      Assert.AreEqual(daily.History.First().Date.ToString(CultureInfo.InvariantCulture), response.History.First().Date.ToString(CultureInfo.InvariantCulture));
+      Assert.AreEqual(daily.History.First().Value, response.History.First().Value);
+      Assert.AreEqual(daily.Completed, response.Completed);
+      Assert.AreEqual(daily.Repeat.Friday, response.Repeat.Friday);
+      Assert.AreEqual(daily.CollapseChecklist, response.CollapseChecklist);
+      Assert.AreEqual(daily.Checklist.First().Id, response.Checklist.First().Id);
+      Assert.AreEqual(daily.Checklist.First().Text, response.Checklist.First().Text);
+      Assert.AreEqual(daily.Streak, response.Streak);
+    }
+
+    private static void AssertTask(Task expected, Task actual)
+    {
+      Assert.AreEqual(expected.Type, actual.Type);
+      Assert.AreEqual(expected.Id, actual.Id);
+      Assert.AreEqual(expected.DateCreated.ToString(CultureInfo.InvariantCulture), actual.DateCreated.ToString(CultureInfo.InvariantCulture));
+      Assert.AreEqual(expected.Text, actual.Text);
+      Assert.AreEqual(expected.Notes, actual.Notes);
+      Assert.AreEqual(expected.Tags.First().GetHashCode(), actual.Tags.First().GetHashCode());
+      Assert.AreEqual(expected.Value, actual.Value);
+      Assert.AreEqual(expected.Priority, actual.Priority);
+      Assert.AreEqual(expected.Attribute, actual.Attribute);
+
+      //todo: It is bug in API - can't add chalange to daily
+      if (expected.Challenge != null)
+      {
+        Assert.AreEqual(expected.Challenge.First().Id, actual.Challenge.First().Id);
+      }
+    }
+
     private static Daily CreateDaily()
     {
       var daily = new Daily()
       {
         Id = Guid.NewGuid(),
-        DateCreated = DateTime.Now,
-        Text = "Main Task: " + DateTime.Now,
+        DateCreated = DateTime.UtcNow,
+        Text = "Main Task: " + DateTime.UtcNow,
         Notes = "Notes",
         Tags = new Dictionary<Guid, bool>
         {
@@ -159,21 +172,21 @@ namespace HabitRPG.Client.Test
         Value = 0,
         Priority = Difficulty.Hard,
         Attribute = Attribute.Strength,
-        Challenge = new List<Challenge>()
+        History = new List<History>()
         {
-          new Challenge() {Winner = "User123456", Broken = Broken.ChallengeClosed, Id = Guid.NewGuid()}
+          new History { Date = DateTime.UtcNow, Value = 1.5107937890723129d}
         },
-                History = new Dictionary<DateTime, double>()
-        {
-          {new DateTime(), 28.1123 }
-        },
-
+        //todo: It is bug in API - can't add chalange to daily
+        //Challenge = new List<Challenge>()
+        //{
+        //  new Challenge() {Winner = "User123456", Broken = Broken.ChallengeClosed, Id = Guid.NewGuid()}
+        //},
         Completed = false,
         Repeat = new Repeat() { Friday = false, Wednesday = false },
         CollapseChecklist = false,
         Checklist = new List<Checklist>
         {
-          new Checklist {Id = Guid.NewGuid(), Text = "Checklist task 1"}
+          new Checklist {Id = Guid.NewGuid(), Text = "Checklist expected 1"}
         },
         Streak = 32.3332
       };
@@ -201,10 +214,10 @@ namespace HabitRPG.Client.Test
           new Challenge() {Winner = "User123456", Broken = Broken.ChallengeClosed, Id = Guid.NewGuid()}
         },
         Down = false,
-        History = new Dictionary<DateTime, double>()
+        History = new List<History>()
         {
-          {new DateTime(), 28.1123 }
-        }
+          new History { Date = DateTime.UtcNow, Value = 1.5107937890723129d}
+        },
       };
 
       return habitTask;
@@ -231,7 +244,7 @@ namespace HabitRPG.Client.Test
         },
         Checklist = new List<Checklist>
         {
-          new Checklist {Id = Guid.NewGuid(), Text = "Checklist task 1"}
+          new Checklist {Id = Guid.NewGuid(), Text = "Checklist expected 1"}
         },
         Completed = true,
         Archived = true,

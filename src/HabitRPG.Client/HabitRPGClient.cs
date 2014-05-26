@@ -71,5 +71,30 @@ namespace HabitRPG.Client
         return responseContent.Result;
       }
     }
+
+    public async Task<T> GetTask<T>(Guid id) where T : Task
+    {
+      var clientHandler = new HttpClientHandler
+      {
+        Proxy = _habitRpgConfiguration.Proxy
+      };
+
+      using (var client = new HttpClient(clientHandler))
+      {
+        client.BaseAddress = _habitRpgConfiguration.ServiceUri;
+        client.DefaultRequestHeaders.Accept.Clear();
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        client.DefaultRequestHeaders.Add("x-api-user", _habitRpgConfiguration.UserId.ToString());
+        client.DefaultRequestHeaders.Add("x-api-key", _habitRpgConfiguration.ApiToken.ToString());
+
+        HttpResponseMessage response = await client.GetAsync(string.Format("api/v2/user/tasks/{0}", id));
+        
+        response.EnsureSuccessStatusCode();
+
+        var responseContent = response.Content.ReadAsAsync<T>();
+
+        return responseContent.Result;
+      }
+    }
   }
 }

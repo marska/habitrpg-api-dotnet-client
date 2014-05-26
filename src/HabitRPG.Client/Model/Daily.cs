@@ -12,7 +12,7 @@ namespace HabitRPG.Client.Model
     }
 
     [JsonProperty("history")]
-    public Dictionary<DateTime, double> History { get; set; }
+    public List<History> History { get; set; }
 
     [JsonProperty("completed")]
     public bool Completed { get; set; }

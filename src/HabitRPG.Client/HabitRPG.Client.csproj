@@ -60,6 +60,7 @@
     <Compile Include="Model\Daily.cs" />
     <Compile Include="Model\Difficulty.cs" />
     <Compile Include="Model\Habit.cs" />
+    <Compile Include="Model\History.cs" />
     <Compile Include="Model\Repeat.cs" />
     <Compile Include="Model\Reward.cs" />
     <Compile Include="Model\Task.cs" />
