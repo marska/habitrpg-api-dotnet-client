@@ -1,7 +1,10 @@
 ﻿using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace HabitRPG.Client.Model
 {
+  [JsonConverter(typeof(StringEnumConverter))]
   public enum Broken
   {
     [EnumMember(Value = "CHALLENGE_DELETED")]

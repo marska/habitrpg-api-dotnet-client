@@ -8,7 +8,7 @@ namespace HabitRPG.Client.Model
   public class Task
   {
     [JsonProperty("id")]
-    public Guid Id { get; set; }
+    public string Id { get; set; }
 
     [JsonProperty("dateCreated")]
     public DateTime DateCreated { get; set; }

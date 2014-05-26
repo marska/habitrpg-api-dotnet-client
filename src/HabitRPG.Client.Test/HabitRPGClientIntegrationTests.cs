@@ -28,7 +28,7 @@ namespace HabitRPG.Client.Test
     }
 
     [Test]
-    public async void Should_Create_New_Todo_Task()
+    public async void Should_create_new_todo_task()
     {
       // Setup
       var todo = CreateTodo();
@@ -49,7 +49,7 @@ namespace HabitRPG.Client.Test
     }
 
     [Test]
-    public async void Should_Create_New_Habit_Task()
+    public async void Should_create_new_habit_task()
     {
       // Setup
       var habit = CreateHabit();
@@ -67,7 +67,7 @@ namespace HabitRPG.Client.Test
     }
 
     [Test]
-    public async void Should_Create_New_Daily_Task()
+    public async void Should_create_new_daily_task()
     {
       // Setup
       var daily = CreateDaily();
@@ -89,7 +89,7 @@ namespace HabitRPG.Client.Test
     }
 
     [Test]
-    public async void Should_Create_New_Reward_Task()
+    public async void Should_create_new_reward_task()
     {
       // Setup
       var reward = CreateReward();
@@ -102,7 +102,7 @@ namespace HabitRPG.Client.Test
     }
 
     [Test]
-    public async void Should_Return_All_Tasks()
+    public async void Should_return_all_tasks()
     {
       // Setup
       var habitTask = CreateHabit();
@@ -138,6 +138,36 @@ namespace HabitRPG.Client.Test
       Assert.AreEqual(daily.Streak, response.Streak);
     }
 
+    [Test]
+    public async void Should_score_existing_task()
+    {
+      // Setup
+      Daily daily = CreateDaily();
+      await _habitRpgService.CreateTask(daily);
+
+      // Action
+      var response = await _habitRpgService.ScoreTask(daily.Id.ToString(), Direction.Up);
+
+      Assert.IsNotNull(response);
+    }
+
+    [Test]
+    public async void Should_create_and_score_new_habit_task()
+    {
+      // Setup
+      string text = DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture);
+
+      // Action
+      object response = await _habitRpgService.ScoreTask(text, Direction.Up);
+
+      // Verify the result
+      var tasks = await _habitRpgService.GetTasks();
+      bool exist = tasks.Exists(t => t.Text.Equals(text));
+
+      Assert.IsNotNull(response);
+      Assert.IsTrue(exist);
+    }
+
     private static void AssertTask(Task expected, Task actual)
     {
       Assert.AreEqual(expected.Type, actual.Type);
@@ -161,7 +191,7 @@ namespace HabitRPG.Client.Test
     {
       var daily = new Daily()
       {
-        Id = Guid.NewGuid(),
+        Id = Guid.NewGuid().ToString(),
         DateCreated = DateTime.UtcNow,
         Text = "Main Task: " + DateTime.UtcNow,
         Notes = "Notes",
@@ -198,7 +228,7 @@ namespace HabitRPG.Client.Test
     {
       var habitTask = new Habit()
       {
-        Id = Guid.NewGuid(),
+        Id = Guid.NewGuid().ToString(),
         DateCreated = DateTime.Now,
         Text = "Main Task: " + DateTime.Now,
         Notes = "Notes",
@@ -227,7 +257,7 @@ namespace HabitRPG.Client.Test
     {
       var habitTask = new Todo
       {
-        Id = Guid.NewGuid(),
+        Id = Guid.NewGuid().ToString(),
         DateCreated = DateTime.Now,
         Text = "Main Task: " + DateTime.Now,
         Notes = "Notes",
@@ -260,7 +290,7 @@ namespace HabitRPG.Client.Test
     {
       var reward = new Reward()
       {
-        Id = Guid.NewGuid(),
+        Id = Guid.NewGuid().ToString(),
         DateCreated = DateTime.Now,
         Text = "Main Task: " + DateTime.Now,
         Notes = "Notes",
