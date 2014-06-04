@@ -1,24 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.AccessControl;
 using System.Threading.Tasks;
 using Task = HabitRPG.Client.Model.Task;
 
 namespace HabitRPG.Client
 {
-  public class HabitRPGClient : IHabitRPGClient
+  public class HabitRPGClient : IHabitRPGClient, IDisposable
   {
-    private readonly HabitRpgConfiguration _habitRpgConfiguration;
+    private readonly HttpClient _httpClient;
+
+    private bool _disposed;
 
     public HabitRPGClient(HabitRpgConfiguration habitRpgConfiguration)
+      : this(habitRpgConfiguration, new HttpClient(new HttpClientHandler()))
+    {
+
+    }
+
+    public HabitRPGClient(HabitRpgConfiguration habitRpgConfiguration, IWebProxy httpClient)
+      : this(habitRpgConfiguration, new HttpClientHandler { Proxy = httpClient, UseProxy = true })
+    {
+
+    }
+
+    public HabitRPGClient(HabitRpgConfiguration habitRpgConfiguration, HttpClientHandler httpClientHandler)
+      : this(habitRpgConfiguration, new HttpClient(httpClientHandler))
+    {
+
+    }
+
+    public HabitRPGClient(HabitRpgConfiguration habitRpgConfiguration, HttpClient httpClient)
     {
       if (habitRpgConfiguration == null)
       {
         throw new ArgumentNullException("habitRpgConfiguration");
       }
 
-      _habitRpgConfiguration = habitRpgConfiguration;
+      if (httpClient == null)
+      {
+        throw new ArgumentNullException("httpClient");
+      }
+
+      _httpClient = httpClient;
+
+      _httpClient.BaseAddress = habitRpgConfiguration.ServiceUri;
+      _httpClient.DefaultRequestHeaders.Accept.Clear();
+      _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+      _httpClient.DefaultRequestHeaders.Add("x-api-user", habitRpgConfiguration.UserId.ToString());
+      _httpClient.DefaultRequestHeaders.Add("x-api-key", habitRpgConfiguration.ApiToken.ToString());
     }
 
     public async Task<T> CreateTask<T>(T task) where T : Task
@@ -28,52 +61,16 @@ namespace HabitRPG.Client
         throw new ArgumentNullException("task");
       }
 
-      var clientHandler = new HttpClientHandler
-      {
-        Proxy = _habitRpgConfiguration.Proxy
-      };
+      var response = await _httpClient.PostAsJsonAsync("api/v2/user/tasks", task);
 
-      using (var client = new HttpClient(clientHandler))
-      {
-        client.BaseAddress = _habitRpgConfiguration.ServiceUri;
-        client.DefaultRequestHeaders.Accept.Clear();
-        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        client.DefaultRequestHeaders.Add("x-api-user", _habitRpgConfiguration.UserId.ToString());
-        client.DefaultRequestHeaders.Add("x-api-key", _habitRpgConfiguration.ApiToken.ToString());
-
-        var response = await client.PostAsJsonAsync("api/v2/user/tasks", task);
-
-        response.EnsureSuccessStatusCode();
-
-        var responseContent = response.Content.ReadAsAsync<T>();
-
-        return responseContent.Result;
-      }
+      return GetResult<T>(response);
     }
 
     public async Task<List<Task>> GetTasks()
     {
-      var clientHandler = new HttpClientHandler
-      {
-        Proxy = _habitRpgConfiguration.Proxy
-      };
+      var response = await _httpClient.GetAsync("api/v2/user/tasks");
 
-      using (var client = new HttpClient(clientHandler))
-      {
-        client.BaseAddress = _habitRpgConfiguration.ServiceUri;
-        client.DefaultRequestHeaders.Accept.Clear();
-        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        client.DefaultRequestHeaders.Add("x-api-user", _habitRpgConfiguration.UserId.ToString());
-        client.DefaultRequestHeaders.Add("x-api-key", _habitRpgConfiguration.ApiToken.ToString());
-
-        HttpResponseMessage response = await client.GetAsync("api/v2/user/tasks");
-
-        response.EnsureSuccessStatusCode();
-
-        Task<List<Task>> responseContent = response.Content.ReadAsAsync<List<Task>>();
-
-        return responseContent.Result;
-      }
+      return GetResult<List<Task>>(response);
     }
 
     public async Task<T> GetTask<T>(string id) where T : Task
@@ -83,27 +80,9 @@ namespace HabitRPG.Client
         throw new ArgumentNullException("id");
       }
 
-      var clientHandler = new HttpClientHandler
-      {
-        Proxy = _habitRpgConfiguration.Proxy
-      };
+      var response = await _httpClient.GetAsync(string.Format("api/v2/user/tasks/{0}", id));
 
-      using (var client = new HttpClient(clientHandler))
-      {
-        client.BaseAddress = _habitRpgConfiguration.ServiceUri;
-        client.DefaultRequestHeaders.Accept.Clear();
-        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        client.DefaultRequestHeaders.Add("x-api-user", _habitRpgConfiguration.UserId.ToString());
-        client.DefaultRequestHeaders.Add("x-api-key", _habitRpgConfiguration.ApiToken.ToString());
-
-        HttpResponseMessage response = await client.GetAsync(string.Format("api/v2/user/tasks/{0}", id));
-        
-        response.EnsureSuccessStatusCode();
-
-        var responseContent = response.Content.ReadAsAsync<T>();
-
-        return responseContent.Result;
-      }
+      return GetResult<T>(response);
     }
 
     public async Task<object> ScoreTask(string id, string direction)
@@ -118,27 +97,43 @@ namespace HabitRPG.Client
         throw new ArgumentNullException("direction");
       }
 
-      var clientHandler = new HttpClientHandler
+      var response = await _httpClient.PostAsync(string.Format("api/v2/user/tasks/{0}/{1}", id, direction), null);
+
+      return GetResult<object>(response);
+    }
+
+    public void Dispose()
+    {
+      Dispose(true);
+
+      GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+      if (!_disposed)
       {
-        Proxy = _habitRpgConfiguration.Proxy
-      };
+        if (disposing)
+        {
+          // Dispose managed resources.
+          _httpClient.Dispose();
+        }
 
-      using (var client = new HttpClient(clientHandler))
-      {
-        client.BaseAddress = _habitRpgConfiguration.ServiceUri;
-        client.DefaultRequestHeaders.Accept.Clear();
-        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        client.DefaultRequestHeaders.Add("x-api-user", _habitRpgConfiguration.UserId.ToString());
-        client.DefaultRequestHeaders.Add("x-api-key", _habitRpgConfiguration.ApiToken.ToString());
-
-        var response = await client.PostAsync(string.Format("api/v2/user/tasks/{0}/{1}", id, direction), null);
-
-        response.EnsureSuccessStatusCode();
-
-        var responseContent = response.Content.ReadAsAsync<object>();
-
-        return responseContent.Result;
+        _disposed = true;
       }
     }
+
+    private static T GetResult<T>(HttpResponseMessage response)
+    {
+      response.EnsureSuccessStatusCode();
+      var responseContent = response.Content.ReadAsAsync<T>();
+      return responseContent.Result;
+    }
+
+    ~HabitRPGClient()
+    {
+      Dispose(false);
+    }
+
   }
 }

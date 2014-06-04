@@ -10,7 +10,5 @@ namespace HabitRPG.Client
     public Guid UserId { get; set; }
 
     public Uri ServiceUri { get; set; }
-
-    public IWebProxy Proxy { get; set; }
   }
 }
