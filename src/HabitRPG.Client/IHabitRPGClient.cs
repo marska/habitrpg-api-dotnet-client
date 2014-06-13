@@ -5,11 +5,15 @@ namespace HabitRPG.Client
 {
   public interface IHabitRPGClient
   {
-    Task<T> CreateTask<T>(T task) where T : Model.Task;
+    Task<T> CreateTaskAsync<T>(T task) where T : Model.Task;
 
-    Task<List<Model.Task>> GetTasks();
+    /// <summary>
+    /// Get all user's tasks
+    /// </summary>
+    /// <returns>List of user task</returns>
+    Task<List<Model.Task>> GetTasksAsync();
 
-    Task<T> GetTask<T>(string id) where T : Model.Task;
+    Task<T> GetTaskAsync<T>(string id) where T : Model.Task;
 
     /// <summary>
     /// Simple scoring of a task. This is most-likely the only API route you'll be using as a 3rd-party developer. 
@@ -19,6 +23,6 @@ namespace HabitRPG.Client
     /// <param name="id">ID of the task to score. If this task doesn't exist, a task will be created automatically</param>
     /// <param name="direction">Either 'up' or 'down'</param>
     /// <returns>Magic object :)</returns>
-    Task<object> ScoreTask(string id, string direction);
+    Task<object> ScoreTaskAsync(string id, string direction);
   }
 }

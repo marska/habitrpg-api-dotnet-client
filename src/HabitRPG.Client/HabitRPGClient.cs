@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using HabitRPG.Client.Extensions;
 using Task = HabitRPG.Client.Model.Task;
 
 namespace HabitRPG.Client
@@ -32,6 +33,11 @@ namespace HabitRPG.Client
 
     }
 
+    public HabitRPGClient(Guid userId, Guid apiToken, Uri serviceUri)
+      : this(new HabitRpgConfiguration { ApiToken = apiToken, ServiceUri = serviceUri, UserId = userId }, new HttpClient())
+    {
+    }
+
     public HabitRPGClient(HabitRpgConfiguration habitRpgConfiguration, HttpClient httpClient)
     {
       if (habitRpgConfiguration == null)
@@ -53,7 +59,7 @@ namespace HabitRPG.Client
       _httpClient.DefaultRequestHeaders.Add("x-api-key", habitRpgConfiguration.ApiToken.ToString());
     }
 
-    public async Task<T> CreateTask<T>(T task) where T : Task
+    public async Task<T> CreateTaskAsync<T>(T task) where T : Task
     {
       if (task == null)
       {
@@ -65,14 +71,14 @@ namespace HabitRPG.Client
       return GetResult<T>(response);
     }
 
-    public async Task<List<Task>> GetTasks()
+    public async Task<List<Task>> GetTasksAsync()
     {
       var response = await _httpClient.GetAsync("api/v2/user/tasks");
 
       return GetResult<List<Task>>(response);
     }
 
-    public async Task<T> GetTask<T>(string id) where T : Task
+    public async Task<T> GetTaskAsync<T>(string id) where T : Task
     {
       if (string.IsNullOrWhiteSpace(id))
       {
@@ -84,7 +90,7 @@ namespace HabitRPG.Client
       return GetResult<T>(response);
     }
 
-    public async Task<object> ScoreTask(string id, string direction)
+    public async Task<object> ScoreTaskAsync(string id, string direction)
     {
       if (id == null)
       {

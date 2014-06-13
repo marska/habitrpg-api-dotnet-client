@@ -1,14 +1,11 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
-namespace HabitRPG.Client
+namespace HabitRPG.Client.Extensions
 {
-   public static class HttpClientExtensions
+   public static class HttpClientExtension
    {
       public static Task<HttpResponseMessage> PostAsJsonAsync(this HttpClient client, string url, object obj)
       {

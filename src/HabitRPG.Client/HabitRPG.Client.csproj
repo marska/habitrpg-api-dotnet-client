@@ -71,8 +71,8 @@
   <ItemGroup>
     <Compile Include="HabitRPGClient.cs" />
     <Compile Include="HabitRpgConfiguration.cs" />
-    <Compile Include="HttpClientExtensions.cs" />
-    <Compile Include="HttpContentExtensions.cs" />
+    <Compile Include="Extensions\HttpClientExtension.cs" />
+    <Compile Include="Extensions\HttpContentExtension.cs" />
     <Compile Include="IHabitRPGClient.cs" />
     <Compile Include="Model\Attribute.cs" />
     <Compile Include="Model\Broken.cs" />

@@ -34,7 +34,7 @@ namespace HabitRPG.Client.Test
       var todo = CreateTodo();
 
       // Action
-      var response = await _habitRpgService.CreateTask(todo);
+      var response = await _habitRpgService.CreateTaskAsync(todo);
 
       // Verify the result
       AssertTask(todo, response);
@@ -55,7 +55,7 @@ namespace HabitRPG.Client.Test
       var habit = CreateHabit();
 
       // Action
-      var response = await _habitRpgService.CreateTask(habit);
+      var response = await _habitRpgService.CreateTaskAsync(habit);
 
       // Verify the result
       AssertTask(habit, response);
@@ -73,7 +73,7 @@ namespace HabitRPG.Client.Test
       var daily = CreateDaily();
 
       // Action
-      var response = await _habitRpgService.CreateTask(daily);
+      var response = await _habitRpgService.CreateTaskAsync(daily);
 
       // Verify the result
       AssertTask(daily, response);
@@ -95,7 +95,7 @@ namespace HabitRPG.Client.Test
       var reward = CreateReward();
 
       // Action
-      var response = await _habitRpgService.CreateTask(reward);
+      var response = await _habitRpgService.CreateTaskAsync(reward);
 
       // Verify the result
       AssertTask(reward, response);
@@ -106,10 +106,10 @@ namespace HabitRPG.Client.Test
     {
       // Setup
       var habitTask = CreateHabit();
-      await _habitRpgService.CreateTask(habitTask);
+      await _habitRpgService.CreateTaskAsync(habitTask);
 
       // Action
-      List<Task> response = await _habitRpgService.GetTasks();
+      List<Task> response = await _habitRpgService.GetTasksAsync();
 
       // Verify the result
       Assert.GreaterOrEqual(response.Count, 1);
@@ -120,10 +120,10 @@ namespace HabitRPG.Client.Test
     {
       // Setup
       Daily daily = CreateDaily();
-      await _habitRpgService.CreateTask(daily);
+      await _habitRpgService.CreateTaskAsync(daily);
 
       // Action
-      Daily response = await _habitRpgService.GetTask<Daily>(daily.Id);
+      Daily response = await _habitRpgService.GetTaskAsync<Daily>(daily.Id);
 
       // Verify the result
       AssertTask(daily, response);
@@ -143,10 +143,10 @@ namespace HabitRPG.Client.Test
     {
       // Setup
       Daily daily = CreateDaily();
-      await _habitRpgService.CreateTask(daily);
+      await _habitRpgService.CreateTaskAsync(daily);
 
       // Action
-      var response = await _habitRpgService.ScoreTask(daily.Id.ToString(), Direction.Up);
+      var response = await _habitRpgService.ScoreTaskAsync(daily.Id.ToString(), Direction.Up);
 
       Assert.IsNotNull(response);
     }
@@ -158,10 +158,10 @@ namespace HabitRPG.Client.Test
       string text = DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture);
 
       // Action
-      object response = await _habitRpgService.ScoreTask(text, Direction.Up);
+      object response = await _habitRpgService.ScoreTaskAsync(text, Direction.Up);
 
       // Verify the result
-      var tasks = await _habitRpgService.GetTasks();
+      var tasks = await _habitRpgService.GetTasksAsync();
       bool exist = tasks.Exists(t => t.Text.Equals(text));
 
       Assert.IsNotNull(response);
