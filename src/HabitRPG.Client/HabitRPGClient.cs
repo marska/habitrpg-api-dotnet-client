@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Security.AccessControl;
 using System.Threading.Tasks;
 using Task = HabitRPG.Client.Model.Task;
 
