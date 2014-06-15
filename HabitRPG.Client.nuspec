@@ -8,7 +8,7 @@
         <owners>Mariusz Skarupiński</owners>
         <licenseUrl>https://github.com/marska/habitrpg-api-dotnet-client/blob/master/LICENSE</licenseUrl>
         <projectUrl>https://github.com/marska/habitrpg-api-dotnet-client</projectUrl>
-        <iconUrl>https://raw.githubusercontent.com/marska/habitrpg-api-dotnet-client/master/res/HabitRPG32x.png</iconUrl>
+        <iconUrl>https://raw.githubusercontent.com/marska/habitrpg-api-dotnet-client/master/res/HabitRPG128x.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Simple HabitRPG API Client Library.</description>
         <copyright>Copyright © 2014, Mariusz Skarupiński</copyright>
