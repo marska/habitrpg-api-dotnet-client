@@ -7,6 +7,12 @@ namespace HabitRPG.Client.Model
 {
   public class Task
   {
+    public Task()
+    {
+      Tags = new Dictionary<Guid, bool>();
+      Priority = Difficulty.Easy;
+    }
+
     [JsonProperty("id")]
     public string Id { get; set; }
 
