@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+    <metadata>
+        <id>HabitRPG.Client</id>
+        <version>1.1.0.0-alpha</version>
+        <title>HabitRPG.Client</title>
+        <authors>Mariusz Skarupiński</authors>
+        <owners>Mariusz Skarupiński</owners>
+        <licenseUrl>https://github.com/marska/habitrpg-api-dotnet-client/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/marska/habitrpg-api-dotnet-client</projectUrl>
+        <iconUrl>https://raw.githubusercontent.com/marska/habitrpg-api-dotnet-client/master/res/HabitRPG32x.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Simple HabitRPG API Client Library.</description>
+        <copyright>Copyright © 2014, Mariusz Skarupiński</copyright>
+        <dependencies>
+            <dependency id="Microsoft.AspNet.WebApi.Client" version="5.1.2" />
+			<dependency id="Microsoft.Bcl" version="1.1.9" />
+			<dependency id="Microsoft.Bcl.Async" version="1.0.165" />
+			<dependency id="Microsoft.Bcl.Build" version="1.0.14" />
+			<dependency id="Microsoft.Net.Http" version="2.2.22" />
+			<dependency id="Newtonsoft.Json" version="6.0.3" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="lib\net451\HabitRPG.Client.dll" target="lib\net451\HabitRPG.Client.dll" />
+		<file src="lib\net451\HabitRPG.Client.pdb" target="lib\net451\HabitRPG.Client.pdb" />
+    </files>
+</package>
