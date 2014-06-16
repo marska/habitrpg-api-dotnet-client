@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>HabitRPG.Client</id>
-        <version>1.1.0.0-alpha</version>
+        <version>2.0.0.0</version>
         <title>HabitRPG.Client</title>
         <authors>Mariusz Skarupiński</authors>
         <owners>Mariusz Skarupiński</owners>
@@ -22,7 +22,7 @@
         </dependencies>
     </metadata>
     <files>
-        <file src="lib\net451\HabitRPG.Client.dll" target="lib\net451\HabitRPG.Client.dll" />
-		<file src="lib\net451\HabitRPG.Client.pdb" target="lib\net451\HabitRPG.Client.pdb" />
+        <file src="..\..\lib\net451\HabitRPG.Client.dll" target="lib\net451\HabitRPG.Client.dll" />
+		<file src="..\..\lib\net451\HabitRPG.Client.pdb" target="lib\net451\HabitRPG.Client.pdb" />
     </files>
 </package>
