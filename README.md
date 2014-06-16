@@ -38,3 +38,6 @@ Task<T> CreateTask<T>(T task) where T : Model.Task;
 
 Task<List<Model.Task>> GetTasks();
 ```
+
+[![MyGet Build Status](https://www.myget.org/BuildSource/Badge/marska?identifier=21b63643-1cd1-4ac0-9fda-e16de34452ab)](https://www.myget.org/)
+
