@@ -21,8 +21,4 @@
 			<dependency id="Newtonsoft.Json" version="6.0.3" />
         </dependencies>
     </metadata>
-    <files>
-        <file src="..\..\lib\net451\HabitRPG.Client.dll" target="lib\net451\HabitRPG.Client.dll" />
-		<file src="..\..\lib\net451\HabitRPG.Client.pdb" target="lib\net451\HabitRPG.Client.pdb" />
-    </files>
 </package>
