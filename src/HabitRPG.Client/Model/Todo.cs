@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using HabitRPG.Client.Converters;
 
 namespace HabitRPG.Client.Model
 {
@@ -17,6 +18,7 @@ namespace HabitRPG.Client.Model
     [JsonProperty("archived")]
     public bool Archived { get; set; }
 
+    [JsonConverter(typeof(Newtonsoft.Json.Converters.IsoDateTimeConverter))]
     [JsonProperty("dateCompleted")]
     public DateTime? DateCompleted { get; set; }
 

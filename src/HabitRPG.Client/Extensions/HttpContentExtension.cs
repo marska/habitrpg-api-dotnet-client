@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using HabitRPG.Client.Converters;
 
 namespace HabitRPG.Client.Extensions
 {
@@ -10,7 +11,7 @@ namespace HabitRPG.Client.Extensions
       {
          var contentJson = await content.ReadAsStringAsync();
 
-         var deserializeObject = JsonConvert.DeserializeObject<T>(contentJson);
+         var deserializeObject = JsonConvert.DeserializeObject<T>(contentJson, new TaskConverter());
 
          return deserializeObject;
       }
