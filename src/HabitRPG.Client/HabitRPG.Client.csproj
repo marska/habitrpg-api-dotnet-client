@@ -71,6 +71,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\TaskConverter.cs" />
+    <Compile Include="Converters\TimestampConverter.cs" />
     <Compile Include="HabitRPGClient.cs" />
     <Compile Include="HabitRpgConfiguration.cs" />
     <Compile Include="Extensions\HttpClientExtension.cs" />
@@ -78,17 +80,26 @@
     <Compile Include="IHabitRPGClient.cs" />
     <Compile Include="Model\Attribute.cs" />
     <Compile Include="Model\Broken.cs" />
+    <Compile Include="Model\Buffs.cs" />
     <Compile Include="Model\Challenge.cs" />
     <Compile Include="Model\Checklist.cs" />
     <Compile Include="Model\Daily.cs" />
     <Compile Include="Model\Difficulty.cs" />
     <Compile Include="Model\Direction.cs" />
+    <Compile Include="Model\Gear.cs" />
     <Compile Include="Model\Habit.cs" />
     <Compile Include="Model\History.cs" />
+    <Compile Include="Model\Items.cs" />
+    <Compile Include="Model\Preferences.cs" />
+    <Compile Include="Model\Profile.cs" />
     <Compile Include="Model\Repeat.cs" />
     <Compile Include="Model\Reward.cs" />
+    <Compile Include="Model\Stats.cs" />
+    <Compile Include="Model\StatsBase.cs" />
+    <Compile Include="Model\Tag.cs" />
     <Compile Include="Model\Task.cs" />
     <Compile Include="Model\Todo.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

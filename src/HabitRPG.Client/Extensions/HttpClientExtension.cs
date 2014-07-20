@@ -15,5 +15,14 @@ namespace HabitRPG.Client.Extensions
 
          return client.PostAsync(url, postMessage);
       }
+
+      public static Task<HttpResponseMessage> PutAsJsonAsync(this HttpClient client, string url, object obj)
+      {
+         var jsonContent = JsonConvert.SerializeObject(obj);
+
+         var postMessage = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+         return client.PutAsync(url, postMessage);
+      }
    }
 }
