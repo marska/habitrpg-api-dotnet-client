@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace HabitRPG.Client
 {
@@ -13,6 +14,8 @@ namespace HabitRPG.Client
    {
       private readonly HttpClient _httpClient;
 
+      private readonly HabitRpgConfiguration _configuration;
+      
       private bool _disposed;
 
       #region Constructor
@@ -56,6 +59,8 @@ namespace HabitRPG.Client
          _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
          _httpClient.DefaultRequestHeaders.Add("x-api-user", habitRpgConfiguration.UserId.ToString());
          _httpClient.DefaultRequestHeaders.Add("x-api-key", habitRpgConfiguration.ApiToken.ToString());
+
+         _configuration = habitRpgConfiguration;
       }
 
       #endregion Constructor
@@ -72,11 +77,11 @@ namespace HabitRPG.Client
          return GetResult<T>(response);
       }
 
-      public async Task<List<Model.ITask>> GetTasksAsync()
+      public async Task<List<ITask>> GetTasksAsync()
       {
          var response = await _httpClient.GetAsync("user/tasks");
 
-         return GetResult<List<Model.ITask>>(response);
+         return GetResult<List<ITask>>(response);
       }
 
       public async Task<T> GetTaskAsync<T>(string id) where T : ITask
@@ -91,13 +96,22 @@ namespace HabitRPG.Client
          return GetResult<T>(response);
       }
 
-      public async Task<Model.User> GetUser()
+      public async Task<User> GetUserAsync()
       {
          var response = await _httpClient.GetAsync("user");
 
          var responseString = await response.Content.ReadAsStringAsync();
 
-         return GetResult<Model.User>(response);
+         return GetResult<User>(response);
+      }
+
+      public async Task<Member> GetMemberAsync(string id)
+      {
+         var response = await _httpClient.GetAsync(string.Format("members/{0}", id));
+
+         var responseString = await response.Content.ReadAsStringAsync();
+
+         return GetResult<Member>(response);
       }
 
       public async Task<object> ScoreTaskAsync(string id, string direction)
@@ -137,14 +151,18 @@ namespace HabitRPG.Client
       {
          var response = await _httpClient.PostAsync("user/tasks/clear-completed", null);
 
-         return GetResult<List<Model.ITask>>(response);
+         return GetResult<List<ITask>>(response);
       }
 
-      private static T GetResult<T>(HttpResponseMessage response)
+      private T GetResult<T>(HttpResponseMessage response)
       {
          response.EnsureSuccessStatusCode();
-         var responseContent = response.Content.ReadAsAsync<T>();
-         return responseContent.Result;
+
+         var contentJson = response.Content.ReadAsStringAsync().Result;
+
+         var deserializeObject = JsonConvert.DeserializeObject<T>(contentJson, _configuration.SerializerSettings);
+
+         return deserializeObject;
       }
 
       #region Dispose

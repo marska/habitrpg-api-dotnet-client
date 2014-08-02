@@ -21,7 +21,9 @@ namespace HabitRPG.Client
 
       Task<List<Model.ITask>> ClearCompletedAsync();
 
-      Task<Model.User> GetUser();
+      Task<Model.User> GetUserAsync();
+
+      Task<Model.Member> GetMemberAsync(string id);
 
       /// <summary>
       /// Simple scoring of a task. This is most-likely the only API route you'll be using as a 3rd-party developer.

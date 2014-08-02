@@ -76,7 +76,6 @@
     <Compile Include="HabitRPGClient.cs" />
     <Compile Include="HabitRpgConfiguration.cs" />
     <Compile Include="Extensions\HttpClientExtension.cs" />
-    <Compile Include="Extensions\HttpContentExtension.cs" />
     <Compile Include="IHabitRPGClient.cs" />
     <Compile Include="Model\Attribute.cs" />
     <Compile Include="Model\Broken.cs" />
@@ -90,6 +89,7 @@
     <Compile Include="Model\Habit.cs" />
     <Compile Include="Model\History.cs" />
     <Compile Include="Model\Items.cs" />
+    <Compile Include="Model\Member.cs" />
     <Compile Include="Model\Preferences.cs" />
     <Compile Include="Model\Profile.cs" />
     <Compile Include="Model\Repeat.cs" />

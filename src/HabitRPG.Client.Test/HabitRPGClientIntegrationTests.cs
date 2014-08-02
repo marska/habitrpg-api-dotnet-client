@@ -16,7 +16,7 @@ namespace HabitRPG.Client.Test
 
       public HabitRPGClientIntegrationTests()
       {
-         var configuration = new HabitRpgConfiguration()
+         var configuration = new HabitRpgConfiguration
          {
             UserId = Guid.Parse("55a4a342-c8da-4c95-9467-4a304a4ae4bd"),
             ApiToken = Guid.Parse("4a64e99a-de87-4fcc-a8bf-aee21dd59a8c"),
@@ -190,10 +190,19 @@ namespace HabitRPG.Client.Test
       [Test]
       public async void Should_get_user()
       {
-         var user = await _habitRpgService.GetUser();
+         var user = await _habitRpgService.GetUserAsync();
 
          Assert.IsNotNull(user);
          Assert.IsNotNull(user.Preferences);
+      }
+
+      [Test]
+      public async void Should_get_member()
+      {
+         var member = await _habitRpgService.GetMemberAsync("55a4a342-c8da-4c95-9467-4a304a4ae4bd");
+
+         Assert.IsNotNull(member);
+         Assert.IsNotNull(member.Preferences);
       }
 
       [Test]
@@ -235,7 +244,7 @@ namespace HabitRPG.Client.Test
 
       private static Daily CreateDaily()
       {
-         var daily = new Daily()
+         var daily = new Daily
          {
             Id = Guid.NewGuid().ToString(),
             DateCreated = DateTime.UtcNow,
@@ -248,7 +257,7 @@ namespace HabitRPG.Client.Test
             Value = 0,
             Priority = Difficulty.Hard,
             Attribute = Attribute.Strength,
-            History = new List<History>()
+            History = new List<History>
             {
                new History { Date = DateTime.UtcNow, Value = 1.5107937890723129d}
             },
@@ -259,7 +268,11 @@ namespace HabitRPG.Client.Test
                Id = Guid.NewGuid()
             },
             Completed = false,
-            Repeat = new Repeat() { Friday = false, Wednesday = false },
+            Repeat = new Repeat
+            {
+               Friday = false, 
+               Wednesday = false
+            },
             CollapseChecklist = false,
             Checklist = new List<Checklist>
             {
@@ -273,7 +286,7 @@ namespace HabitRPG.Client.Test
 
       private static Habit CreateHabit()
       {
-         var habitTask = new Habit()
+         var habitTask = new Habit
          {
             Id = Guid.NewGuid().ToString(),
             DateCreated = DateTime.UtcNow,
@@ -293,7 +306,7 @@ namespace HabitRPG.Client.Test
                Id = Guid.NewGuid()
             },
             Down = false,
-            History = new List<History>()
+            History = new List<History>
             {
                new History { Date = DateTime.UtcNow, Value = 1.5107937890723129d}
             },
