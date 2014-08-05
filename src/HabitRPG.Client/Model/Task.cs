@@ -25,7 +25,7 @@ namespace HabitRPG.Client.Model
       [JsonProperty("id")]
       public string Id { get; set; }
 
-      [JsonConverter(typeof(Newtonsoft.Json.Converters.IsoDateTimeConverter))]
+      [JsonConverter(typeof(IsoDateTimeConverter))]
       [JsonProperty("dateCreated")]
       public DateTime? DateCreated { get; set; }
 

@@ -1,8 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace HabitRPG.Client.Model
 {
@@ -22,6 +18,15 @@ namespace HabitRPG.Client.Model
 
       [JsonProperty("hair")]
       public Hair Hair { get; set; }
+
+      [JsonProperty("costume")]
+      public bool Costume { get; set; }
+
+      [JsonProperty("sleep")]
+      public bool Sleep { get; set; }
+
+      [JsonProperty("background")]
+      public string Background { get; set; }
    }
 
    public class Hair
