@@ -28,15 +28,15 @@ namespace HabitRPG.Client.Test
     }
     
     [TestFixtureTearDown]
-    public void Dispose()
+    public async void Dispose()
     {
-      Task<List<ITask>> response = _habitRpgService.GetTasksAsync();
+      var response = await _habitRpgService.GetTasksAsync();
 
-      if (response.Result.Count > 0)
+      if (response.Count > 0)
       {
-        foreach (var task in response.Result)
+        foreach (var task in response)
         {
-          _habitRpgService.DeleteTaskAsync(task.Id);  
+          await _habitRpgService.DeleteTaskAsync(task.Id);  
         }
       }
     }
