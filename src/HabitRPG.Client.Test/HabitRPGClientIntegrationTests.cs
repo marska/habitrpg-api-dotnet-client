@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using HabitRPG.Client.Model;
+﻿using HabitRPG.Client.Model;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -19,219 +18,245 @@ namespace HabitRPG.Client.Test
     {
       var configuration = new HabitRpgConfiguration
       {
-        UserId = Guid.Parse("55a4a342-c8da-4c95-9467-4a304a4ae4bd"),
-        ApiToken = Guid.Parse("4a64e99a-de87-4fcc-a8bf-aee21dd59a8c"),
+        UserId = Guid.Parse("33b8cd45-0434-4a9a-943a-a90021affdc8"),
+        ApiToken = Guid.Parse("f9cf8c3c-057a-430e-a4ed-fb4c597a32cb"),
         ServiceUri = new Uri(@"https://habitrpg.com/")
       };
 
       _habitRpgService = new HabitRPGClient(configuration);
     }
-    
-    [TestFixtureTearDown]
-    public async void Dispose()
-    {
-      var response = await _habitRpgService.GetTasksAsync();
 
-      if (response.Count > 0)
+    [TearDown]
+    public void TearDown()
+    {
+      var response = _habitRpgService.GetTasksAsync();
+      response.Wait();
+
+      var tasks = response.Result;
+      if (tasks.Count > 0)
       {
-        foreach (var task in response)
+        tasks.ForEach(t =>
         {
-          await _habitRpgService.DeleteTaskAsync(task.Id);  
-        }
+          var deleteTaskAsync = _habitRpgService.DeleteTaskAsync(t.Id);
+          deleteTaskAsync.Wait();
+        });
       }
     }
 
     [Test]
-    public async void Should_create_new_todo_task()
+    public void Should_create_new_todo_task()
     {
       // Setup
       var todo = CreateTodo();
 
       // Action
-      var response = await _habitRpgService.CreateTaskAsync(todo);
+      var response = _habitRpgService.CreateTaskAsync(todo);
+      response.Wait();
 
       // Verify the result
-      AssertTask(todo, response);
+      AssertTask(todo, response.Result);
 
-      Assert.AreEqual(todo.Completed, response.Completed);
-      Assert.AreEqual(todo.Archived, response.Archived);
-      Assert.AreEqual(todo.Checklist.First().Id, response.Checklist.First().Id);
-      Assert.AreEqual(todo.Checklist.First().Text, response.Checklist.First().Text);
-      AssertDateTime(todo.DateCompleted.Value, response.DateCompleted.Value);
-      AssertDateTime(todo.Date.Value, response.Date.Value);
-      Assert.AreEqual(todo.CollapseChecklist, response.CollapseChecklist);
+      Assert.AreEqual(todo.Completed, response.Result.Completed);
+      Assert.AreEqual(todo.Archived, response.Result.Archived);
+      Assert.AreEqual(todo.Checklist.First().Id, response.Result.Checklist.First().Id);
+      Assert.AreEqual(todo.Checklist.First().Text, response.Result.Checklist.First().Text);
+      AssertDateTime(todo.DateCompleted.Value, response.Result.DateCompleted.Value);
+      AssertDateTime(todo.Date.Value, response.Result.Date.Value);
+      Assert.AreEqual(todo.CollapseChecklist, response.Result.CollapseChecklist);
     }
 
     [Test]
-    public async void Should_create_new_habit_task()
+    public void Should_create_new_habit_task()
     {
       // Setup
       var habit = CreateHabit();
 
       // Action
-      var response = await _habitRpgService.CreateTaskAsync(habit);
+      var response = _habitRpgService.CreateTaskAsync(habit);
+      response.Wait();
 
       // Verify the result
-      AssertTask(habit, response);
+      AssertTask(habit, response.Result);
 
-      Assert.AreEqual(habit.Down, response.Down);
-      Assert.AreEqual(habit.Up, response.Up);
-      Assert.AreEqual(habit.History.First().Date.ToString(CultureInfo.InvariantCulture), response.History.First().Date.ToString(CultureInfo.InvariantCulture));
-      Assert.AreEqual(habit.History.First().Value, response.History.First().Value);
+      Assert.AreEqual(habit.Down, response.Result.Down);
+      Assert.AreEqual(habit.Up, response.Result.Up);
+      Assert.AreEqual(habit.History.First().Date.ToString(CultureInfo.InvariantCulture), response.Result.History.First().Date.ToString(CultureInfo.InvariantCulture));
+      Assert.AreEqual(habit.History.First().Value, response.Result.History.First().Value);
     }
 
     [Test]
-    public async void Should_create_new_daily_task()
+    public void Should_create_new_daily_task()
     {
       // Setup
       var daily = CreateDaily();
 
       // Action
-      var response = await _habitRpgService.CreateTaskAsync(daily);
+      var response = _habitRpgService.CreateTaskAsync(daily);
+      response.Wait();
 
       // Verify the result
-      AssertTask(daily, response);
+      AssertTask(daily, response.Result);
 
-      Assert.AreEqual(daily.History.First().Date.ToString(CultureInfo.InvariantCulture), response.History.First().Date.ToString(CultureInfo.InvariantCulture));
-      Assert.AreEqual(daily.History.First().Value, response.History.First().Value);
-      Assert.AreEqual(daily.Completed, response.Completed);
-      Assert.AreEqual(daily.Repeat.Friday, response.Repeat.Friday);
-      Assert.AreEqual(daily.CollapseChecklist, response.CollapseChecklist);
-      Assert.AreEqual(daily.Checklist.First().Id, response.Checklist.First().Id);
-      Assert.AreEqual(daily.Checklist.First().Text, response.Checklist.First().Text);
-      Assert.AreEqual(daily.Streak, response.Streak);
+      Assert.AreEqual(daily.History.First().Date.ToString(CultureInfo.InvariantCulture), response.Result.History.First().Date.ToString(CultureInfo.InvariantCulture));
+      Assert.AreEqual(daily.History.First().Value, response.Result.History.First().Value);
+      Assert.AreEqual(daily.Completed, response.Result.Completed);
+      Assert.AreEqual(daily.Repeat.Friday, response.Result.Repeat.Friday);
+      Assert.AreEqual(daily.CollapseChecklist, response.Result.CollapseChecklist);
+      Assert.AreEqual(daily.Checklist.First().Id, response.Result.Checklist.First().Id);
+      Assert.AreEqual(daily.Checklist.First().Text, response.Result.Checklist.First().Text);
+      Assert.AreEqual(daily.Streak, response.Result.Streak);
     }
 
     [Test]
-    public async void Should_create_new_reward_task()
+    public void Should_create_new_reward_task()
     {
       // Setup
       var reward = CreateReward();
 
       // Action
-      var response = await _habitRpgService.CreateTaskAsync(reward);
+      var response = _habitRpgService.CreateTaskAsync(reward);
+      response.Wait();
 
       // Verify the result
-      AssertTask(reward, response);
+      AssertTask(reward, response.Result);
     }
 
     [Test]
-    public async void Should_create_and_update_todo()
+    public void Should_create_and_update_todo()
     {
       // Setup
       var todo = CreateTodo();
 
       // Action
-      var response = await _habitRpgService.CreateTaskAsync(todo);
+      var response = _habitRpgService.CreateTaskAsync(todo);
+      response.Wait();
 
-      AssertTask(todo, response);
+      AssertTask(todo, response.Result);
 
       todo.Text = "Some new updated Text";
 
-      response = await _habitRpgService.UpdateTaskAsync(todo);
+      response = _habitRpgService.UpdateTaskAsync(todo);
+      response.Wait();
 
-      AssertTask(todo, response);
+      AssertTask(todo, response.Result);
     }
 
     [Test]
-    public async void Should_return_all_tasks()
+    public void Should_return_all_tasks()
     {
       // Setup
       var habitTask = CreateHabit();
-      await _habitRpgService.CreateTaskAsync(habitTask);
+      var task = _habitRpgService.CreateTaskAsync(habitTask);
+      task.Wait();
 
       // Action
-      var response = await _habitRpgService.GetTasksAsync();
+      var response = _habitRpgService.GetTasksAsync();
+      response.Wait();
 
       // Verify the result
-      Assert.GreaterOrEqual(response.Count, 1);
+      Assert.GreaterOrEqual(response.Result.Count, 1);
     }
 
     [Test]
-    public async void Should_return_daily_task_and_delete_it()
+    public void Should_return_daily_task()
     {
       // Setup
       Daily daily = CreateDaily();
-      await _habitRpgService.CreateTaskAsync(daily);
+      var task = _habitRpgService.CreateTaskAsync(daily);
+      task.Wait();
 
       // Action
-      Daily response = await _habitRpgService.GetTaskAsync<Daily>(daily.Id);
+      var response = _habitRpgService.GetTaskAsync<Daily>(daily.Id);
+      response.Wait();
 
       // Verify the result
-      AssertTask(daily, response);
+      AssertTask(daily, response.Result);
 
-      Assert.AreEqual(daily.History.First().Date.ToString(CultureInfo.InvariantCulture), response.History.First().Date.ToString(CultureInfo.InvariantCulture));
-      Assert.AreEqual(daily.History.First().Value, response.History.First().Value);
-      Assert.AreEqual(daily.Completed, response.Completed);
-      Assert.AreEqual(daily.Repeat.Friday, response.Repeat.Friday);
-      Assert.AreEqual(daily.CollapseChecklist, response.CollapseChecklist);
-      Assert.AreEqual(daily.Checklist.First().Id, response.Checklist.First().Id);
-      Assert.AreEqual(daily.Checklist.First().Text, response.Checklist.First().Text);
-      Assert.AreEqual(daily.Streak, response.Streak);
-
-      await _habitRpgService.DeleteTaskAsync(daily.Id);
+      Assert.AreEqual(daily.History.First().Date.ToString(CultureInfo.InvariantCulture), response.Result.History.First().Date.ToString(CultureInfo.InvariantCulture));
+      Assert.AreEqual(daily.History.First().Value, response.Result.History.First().Value);
+      Assert.AreEqual(daily.Completed, response.Result.Completed);
+      Assert.AreEqual(daily.Repeat.Friday, response.Result.Repeat.Friday);
+      Assert.AreEqual(daily.CollapseChecklist, response.Result.CollapseChecklist);
+      Assert.AreEqual(daily.Checklist.First().Id, response.Result.Checklist.First().Id);
+      Assert.AreEqual(daily.Checklist.First().Text, response.Result.Checklist.First().Text);
+      Assert.AreEqual(daily.Streak, response.Result.Streak);
     }
 
     [Test]
-    public async void Should_score_existing_task()
+    public void Should_score_existing_task()
     {
       // Setup
-      Daily daily = CreateDaily();
-      await _habitRpgService.CreateTaskAsync(daily);
+      var daily = CreateDaily();
+      var task = _habitRpgService.CreateTaskAsync(daily);
+      task.Wait();
 
       // Action
-      var response = await _habitRpgService.ScoreTaskAsync(daily.Id.ToString(), Direction.Up);
+      var response = _habitRpgService.ScoreTaskAsync(daily.Id, Direction.Up);
+      response.Wait();
 
-      Assert.IsNotNull(response);
+      // Verify the result
+      Assert.IsNotNull(response.Result);
     }
 
     [Test]
-    public async void Should_create_and_score_new_habit_task()
+    public void Should_create_and_score_new_habit_task()
     {
       // Setup
       string text = DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture);
 
       // Action
-      object response = await _habitRpgService.ScoreTaskAsync(text, Direction.Up);
+      var response = _habitRpgService.ScoreTaskAsync(text, Direction.Up);
+      response.Wait();
 
       // Verify the result
-      var tasks = await _habitRpgService.GetTasksAsync();
-      bool exist = tasks.Exists(t => t.Text.Equals(text));
+      var tasks = _habitRpgService.GetTasksAsync();
+      tasks.Wait();
+
+      bool exist = tasks.Result.Exists(t => t.Text.Equals(text));
 
       Assert.IsNotNull(response);
       Assert.IsTrue(exist);
     }
 
     [Test]
-    public async void Should_get_user()
+    public void Should_get_user()
     {
-      var user = await _habitRpgService.GetUserAsync();
+      // Action
+      var response = _habitRpgService.GetUserAsync();
+      response.Wait();
 
-      Assert.IsNotNull(user);
-      Assert.IsNotNull(user.Preferences);
+      // Verify the result
+      Assert.IsNotNull(response.Result);
+      Assert.IsNotNull(response.Result.Preferences);
     }
 
     [Test]
-    public async void Should_get_member()
+    public void Should_get_member()
     {
-      var member = await _habitRpgService.GetMemberAsync("55a4a342-c8da-4c95-9467-4a304a4ae4bd");
+      // Action
+      var response = _habitRpgService.GetMemberAsync("55a4a342-c8da-4c95-9467-4a304a4ae4bd");
+      response.Wait();
 
-      Assert.IsNotNull(member);
-      Assert.IsNotNull(member.Preferences);
+      // Verify the result
+      Assert.IsNotNull(response.Result);
+      Assert.IsNotNull(response.Result.Preferences);
     }
 
     [Test]
-    public async void Should_clear_completed()
+    public void Should_clear_completed()
     {
       var todo = CreateTodo();
 
-      await _habitRpgService.CreateTaskAsync<Todo>(todo);
+      var createTaskResponse = _habitRpgService.CreateTaskAsync(todo);
+      createTaskResponse.Wait();
 
-      var response = await _habitRpgService.ScoreTaskAsync(todo.Id, Direction.Up);
+      var scoreTaskResponse = _habitRpgService.ScoreTaskAsync(todo.Id, Direction.Up);
+      scoreTaskResponse.Wait();
 
-      var clearedTasks = await _habitRpgService.ClearCompletedAsync();
+      var clearCompletedResponse = _habitRpgService.ClearCompletedAsync();
+      clearCompletedResponse.Wait();
 
-      Assert.True(clearedTasks.Any(t => t.Id.Equals(todo.Id)));
+      Assert.True(clearCompletedResponse.Result.Any(t => t.Id.Equals(todo.Id)));
     }
 
     private static void AssertTask(Task expected, Task actual)
