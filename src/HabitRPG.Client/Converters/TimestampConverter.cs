@@ -3,15 +3,15 @@ using System;
 
 namespace HabitRPG.Client.Converters
 {
-   public class TimestampConverter : Newtonsoft.Json.JsonConverter
+   public class TimestampConverter : JsonConverter
    {
       private readonly DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
       public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
       {
-         var dateTime = (DateTime)value;
+         var dateTime = ((DateTime)value).ToUniversalTime();
 
-         var intMilliseconds = (Int64)((dateTime - _epoch).TotalMilliseconds * 1000d);
+         var intMilliseconds = (Int64)((dateTime - _epoch).TotalMilliseconds);
 
          writer.WriteRawValue(intMilliseconds.ToString());
       }
@@ -23,19 +23,19 @@ namespace HabitRPG.Client.Converters
             return reader.Value;
 
          if (reader.Value == null)
-            return DateTime.MinValue;
+            return _epoch;
 
          long longValue;
 
          if (long.TryParse(reader.Value.ToString(), out longValue))
-            return _epoch.AddMilliseconds(longValue / 1000d);
+            return _epoch.AddMilliseconds(longValue);
 
          DateTime dateTime;
 
          if (DateTime.TryParse(reader.Value.ToString(), out dateTime))
             return dateTime;
 
-         return DateTime.MinValue;
+         return _epoch;
       }
 
       public override bool CanConvert(Type objectType)

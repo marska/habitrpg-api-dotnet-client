@@ -1,8 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace HabitRPG.Client.Model
 {
@@ -12,7 +8,7 @@ namespace HabitRPG.Client.Model
       public string Class { get; set; }
 
       [JsonProperty("exp")]
-      public int Exp { get; set; }
+      public double Exp { get; set; }
 
       [JsonProperty("gp")]
       public double Gold { get; set; }
