@@ -12,8 +12,10 @@ namespace HabitRPG.Client.Model
          Likes = new Dictionary<Guid, bool>();
       }
 
+      [JsonProperty("id")]
       public Guid Id { get; set; }
 
+      [JsonProperty("text")]
       public string Text { get; set; }
 
       [JsonConverter(typeof(TimestampConverter))]
