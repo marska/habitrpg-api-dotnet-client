@@ -259,6 +259,35 @@ namespace HabitRPG.Client.Test
       Assert.True(clearCompletedResponse.Result.Any(t => t.Id.Equals(todo.Id)));
     }
 
+    [Test]
+    public void Should_get_buyable_items()
+    {
+      var getBuyableItemsAsyncResponse = _habitRpgService.GetBuyableItemsAsync();
+      getBuyableItemsAsyncResponse.Wait();
+
+      Assert.IsNotEmpty(getBuyableItemsAsyncResponse.Result);
+    }
+
+    [Test]
+    public void Should_get_group_tavern()
+    {
+      var getGroupAsyncResponse = _habitRpgService.GetGroupAsync("habitrpg");
+      getGroupAsyncResponse.Wait();
+
+      Assert.IsNotNull(getGroupAsyncResponse.Result);
+      Assert.IsNotNull(getGroupAsyncResponse.Result.Id);
+      Assert.IsNotEmpty(getGroupAsyncResponse.Result.Chat);
+    }
+     
+    [Test]
+    public void Should_get_tavern_chat()
+    {
+      var getGroupChatAsyncResponse = _habitRpgService.GetGroupChatAsync("habitrpg");
+      getGroupChatAsyncResponse.Wait();
+
+      Assert.IsNotEmpty(getGroupChatAsyncResponse.Result);
+    }
+
     private static void AssertTask(Task expected, Task actual)
     {
       Assert.AreEqual(expected.Type, actual.Type);
@@ -392,7 +421,7 @@ namespace HabitRPG.Client.Test
 
     private static Reward CreateReward()
     {
-      var reward = new Reward()
+      var reward = new Reward
       {
         Id = Guid.NewGuid().ToString(),
         DateCreated = DateTime.Now,
@@ -405,7 +434,7 @@ namespace HabitRPG.Client.Test
         Value = 1110,
         Priority = Difficulty.Hard,
         Attribute = Attribute.Strength,
-        Challenge = new Challenge()
+        Challenge = new Challenge
         {
           Winner = "User123456",
           Broken = Broken.ChallengeClosed,

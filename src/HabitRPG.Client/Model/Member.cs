@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace HabitRPG.Client.Model
@@ -9,7 +10,7 @@ namespace HabitRPG.Client.Model
       public double Balance { get; set; }
       
       [JsonProperty("id")]
-      public string Id { get; set; }
+      public Guid Id { get; set; }
 
       [JsonProperty("items")]
       public Items Items { get; set; }
@@ -25,5 +26,8 @@ namespace HabitRPG.Client.Model
 
       [JsonProperty("preferences")]
       public Preferences Preferences { get; set; }
+
+      [JsonProperty("contributor")]
+      public Contributor Contributor { get; set; }
    }
 }
