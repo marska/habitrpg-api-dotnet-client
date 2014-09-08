@@ -52,6 +52,15 @@ Task<User> GetUserAsync();
 ```cs
 Task<Member> GetMemberAsync(string id);
 ```
+## IGroupsClient
+```cs
+Task<List<Group>> GetGroupsAsync(string types);
+Task<Group> GetGroupAsync(string groupId);
+Task<List<ChatMessage>> GetGroupChatAsync(string groupId);
+Task<ChatMessage> SendChatMessageAsync(string groupId, string message);
+Task DeleteChatMessage(string groupId, string messageId);
+Task LikeChatMessage(string groupId, string messageId);
 
+```
 [![MyGet Build Status](https://www.myget.org/BuildSource/Badge/marska?identifier=21b63643-1cd1-4ac0-9fda-e16de34452ab)](https://www.myget.org/)
 
