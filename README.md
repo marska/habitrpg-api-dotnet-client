@@ -35,7 +35,7 @@ var response = await _habitRpgService.CreateTask(todo);
 
 ## IUserClient
 ```cs
-IUserClient
+
 Task<object> ScoreTaskAsync(string id, Direction direction);
 Task<List<ITask>> GetTasksAsync();
 Task<T> CreateTaskAsync<T>(T task) where T : ITask;
