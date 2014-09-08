@@ -8,7 +8,7 @@ Simple .NET HabitRPG Client Library
 To install HabitRPG.Client, run the following command in the [Package Manager Console](https://www.nuget.org/packages/HabitRPG.Client/)
 
 ```
-Install-Package HabitRPG.Client -Pre
+Install-Package HabitRPG.Client
 ```
 
 # How to use
@@ -21,14 +21,9 @@ var configuration = new HabitRpgConfiguration()
   ServiceUri = new Uri(@"https://habitrpg.com/")
 };
 
-IHabitRPGClient _habitRpgService = new HabitRPGClient(configuration);
+IUserClient _userClient = new UserClient(configuration);
 
-var habitTask = new Todo
-{
-  Text = "My todo" 
-};
-
-var response = await _habitRpgService.CreateTask(todo);
+var response = await _userClient.GetTasksAsync();
 ```
 
 # Supported methods
@@ -58,8 +53,8 @@ Task<List<Group>> GetGroupsAsync(string types);
 Task<Group> GetGroupAsync(string groupId);
 Task<List<ChatMessage>> GetGroupChatAsync(string groupId);
 Task<ChatMessage> SendChatMessageAsync(string groupId, string message);
-Task DeleteChatMessage(string groupId, string messageId);
-Task LikeChatMessage(string groupId, string messageId);
+Task DeleteChatMessageAsync(string groupId, string messageId);
+Task LikeChatMessageAsync(string groupId, string messageId);
 
 ```
 [![MyGet Build Status](https://www.myget.org/BuildSource/Badge/marska?identifier=21b63643-1cd1-4ac0-9fda-e16de34452ab)](https://www.myget.org/)
