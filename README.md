@@ -1,7 +1,7 @@
 HabitRPG API .NET Client
 ==========================
 
-Simple .NET HabitRPG Client Library
+.NET Async HabitRPG Client Library
 
 # How to install
 
