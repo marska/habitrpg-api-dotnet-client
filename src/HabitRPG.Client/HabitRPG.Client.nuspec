@@ -10,7 +10,7 @@
         <projectUrl>https://github.com/marska/habitrpg-api-dotnet-client</projectUrl>
         <iconUrl>https://raw.githubusercontent.com/marska/habitrpg-api-dotnet-client/master/res/HabitRPG128x.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>Simple HabitRPG API Client Library.</description>
+        <description>HabitRPG API Client Library.</description>
         <copyright>Copyright © 2014, Mariusz Skarupiński</copyright>
         <dependencies>            
 			<dependency id="Microsoft.Bcl" version="1.1.9" />

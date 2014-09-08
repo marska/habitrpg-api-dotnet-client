@@ -71,13 +71,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ClientBase.cs" />
     <Compile Include="Converters\TaskConverter.cs" />
     <Compile Include="Converters\TimestampConverter.cs" />
-    <Compile Include="HabitRPGClient.cs" />
+    <Compile Include="GroupsClient.cs" />
+    <Compile Include="UserClient.cs" />
     <Compile Include="HabitRpgConfiguration.cs" />
     <Compile Include="Extensions\HttpClientExtension.cs" />
-    <Compile Include="IHabitRPGClient.cs" />
+    <Compile Include="IChallengesClient.cs" />
+    <Compile Include="IContentClient.cs" />
+    <Compile Include="IExportClient.cs" />
+    <Compile Include="IGroupsClient.cs" />
+    <Compile Include="IHallClient.cs" />
     <Compile Include="ILogger.cs" />
+    <Compile Include="IMembersClient.cs" />
+    <Compile Include="IStatusClient.cs" />
+    <Compile Include="IUserClient.cs" />
+    <Compile Include="MembersClient.cs" />
     <Compile Include="Model\Attribute.cs" />
     <Compile Include="Model\Broken.cs" />
     <Compile Include="Model\Buffs.cs" />

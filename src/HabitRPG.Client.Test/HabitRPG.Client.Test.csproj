@@ -65,7 +65,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HabitRPGClientIntegrationTests.cs" />
+    <Compile Include="GroupsClientIntegrationTests.cs" />
+    <Compile Include="UserClientIntegrationTests.cs" />
+    <Compile Include="IntegrationBase.cs" />
+    <Compile Include="MembersClientIntegrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

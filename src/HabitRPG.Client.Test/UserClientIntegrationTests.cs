@@ -10,37 +10,13 @@ using Task = HabitRPG.Client.Model.Task;
 namespace HabitRPG.Client.Test
 {
   [TestFixture]
-  public class HabitRPGClientIntegrationTests
+  public class UserClientIntegrationTests : IntegrationBase
   {
-    private readonly IHabitRPGClient _habitRpgService;
+    private readonly IUserClient _userClient;
 
-    public HabitRPGClientIntegrationTests()
+    public UserClientIntegrationTests()
     {
-      var configuration = new HabitRpgConfiguration
-      {
-        UserId = Guid.Parse("33b8cd45-0434-4a9a-943a-a90021affdc8"),
-        ApiToken = Guid.Parse("f9cf8c3c-057a-430e-a4ed-fb4c597a32cb"),
-        ServiceUri = new Uri(@"https://habitrpg.com/")
-      };
-
-      _habitRpgService = new HabitRPGClient(configuration);
-    }
-
-    [TearDown]
-    public void TearDown()
-    {
-      var response = _habitRpgService.GetTasksAsync();
-      response.Wait();
-
-      var tasks = response.Result;
-      if (tasks.Count > 0)
-      {
-        tasks.ForEach(t =>
-        {
-          var deleteTaskAsync = _habitRpgService.DeleteTaskAsync(t.Id);
-          deleteTaskAsync.Wait();
-        });
-      }
+      _userClient = new UserClient(HabitRpgConfiguration);
     }
 
     [Test]
@@ -50,7 +26,7 @@ namespace HabitRPG.Client.Test
       var todo = CreateTodo();
 
       // Action
-      var response = _habitRpgService.CreateTaskAsync(todo);
+      var response = _userClient.CreateTaskAsync(todo);
       response.Wait();
 
       // Verify the result
@@ -72,7 +48,7 @@ namespace HabitRPG.Client.Test
       var habit = CreateHabit();
 
       // Action
-      var response = _habitRpgService.CreateTaskAsync(habit);
+      var response = _userClient.CreateTaskAsync(habit);
       response.Wait();
 
       // Verify the result
@@ -91,7 +67,7 @@ namespace HabitRPG.Client.Test
       var daily = CreateDaily();
 
       // Action
-      var response = _habitRpgService.CreateTaskAsync(daily);
+      var response = _userClient.CreateTaskAsync(daily);
       response.Wait();
 
       // Verify the result
@@ -114,7 +90,7 @@ namespace HabitRPG.Client.Test
       var reward = CreateReward();
 
       // Action
-      var response = _habitRpgService.CreateTaskAsync(reward);
+      var response = _userClient.CreateTaskAsync(reward);
       response.Wait();
 
       // Verify the result
@@ -128,14 +104,14 @@ namespace HabitRPG.Client.Test
       var todo = CreateTodo();
 
       // Action
-      var response = _habitRpgService.CreateTaskAsync(todo);
+      var response = _userClient.CreateTaskAsync(todo);
       response.Wait();
 
       AssertTask(todo, response.Result);
 
       todo.Text = "Some new updated Text";
 
-      response = _habitRpgService.UpdateTaskAsync(todo);
+      response = _userClient.UpdateTaskAsync(todo);
       response.Wait();
 
       AssertTask(todo, response.Result);
@@ -146,11 +122,11 @@ namespace HabitRPG.Client.Test
     {
       // Setup
       var habitTask = CreateHabit();
-      var task = _habitRpgService.CreateTaskAsync(habitTask);
+      var task = _userClient.CreateTaskAsync(habitTask);
       task.Wait();
 
       // Action
-      var response = _habitRpgService.GetTasksAsync();
+      var response = _userClient.GetTasksAsync();
       response.Wait();
 
       // Verify the result
@@ -162,11 +138,11 @@ namespace HabitRPG.Client.Test
     {
       // Setup
       Daily daily = CreateDaily();
-      var task = _habitRpgService.CreateTaskAsync(daily);
+      var task = _userClient.CreateTaskAsync(daily);
       task.Wait();
 
       // Action
-      var response = _habitRpgService.GetTaskAsync<Daily>(daily.Id);
+      var response = _userClient.GetTaskAsync<Daily>(daily.Id);
       response.Wait();
 
       // Verify the result
@@ -187,11 +163,11 @@ namespace HabitRPG.Client.Test
     {
       // Setup
       var daily = CreateDaily();
-      var task = _habitRpgService.CreateTaskAsync(daily);
+      var task = _userClient.CreateTaskAsync(daily);
       task.Wait();
 
       // Action
-      var response = _habitRpgService.ScoreTaskAsync(daily.Id, Direction.Up);
+      var response = _userClient.ScoreTaskAsync(daily.Id, Direction.Up);
       response.Wait();
 
       // Verify the result
@@ -205,11 +181,11 @@ namespace HabitRPG.Client.Test
       string text = DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture);
 
       // Action
-      var response = _habitRpgService.ScoreTaskAsync(text, Direction.Up);
+      var response = _userClient.ScoreTaskAsync(text, Direction.Up);
       response.Wait();
 
       // Verify the result
-      var tasks = _habitRpgService.GetTasksAsync();
+      var tasks = _userClient.GetTasksAsync();
       tasks.Wait();
 
       bool exist = tasks.Result.Exists(t => t.Text.Equals(text));
@@ -222,19 +198,7 @@ namespace HabitRPG.Client.Test
     public void Should_get_user()
     {
       // Action
-      var response = _habitRpgService.GetUserAsync();
-      response.Wait();
-
-      // Verify the result
-      Assert.IsNotNull(response.Result);
-      Assert.IsNotNull(response.Result.Preferences);
-    }
-
-    [Test]
-    public void Should_get_member()
-    {
-      // Action
-      var response = _habitRpgService.GetMemberAsync("55a4a342-c8da-4c95-9467-4a304a4ae4bd");
+      var response = _userClient.GetUserAsync();
       response.Wait();
 
       // Verify the result
@@ -247,13 +211,13 @@ namespace HabitRPG.Client.Test
     {
       var todo = CreateTodo();
 
-      var createTaskResponse = _habitRpgService.CreateTaskAsync(todo);
+      var createTaskResponse = _userClient.CreateTaskAsync(todo);
       createTaskResponse.Wait();
 
-      var scoreTaskResponse = _habitRpgService.ScoreTaskAsync(todo.Id, Direction.Up);
+      var scoreTaskResponse = _userClient.ScoreTaskAsync(todo.Id, Direction.Up);
       scoreTaskResponse.Wait();
 
-      var clearCompletedResponse = _habitRpgService.ClearCompletedAsync();
+      var clearCompletedResponse = _userClient.ClearCompletedAsync();
       clearCompletedResponse.Wait();
 
       Assert.True(clearCompletedResponse.Result.Any(t => t.Id.Equals(todo.Id)));
@@ -262,30 +226,10 @@ namespace HabitRPG.Client.Test
     [Test]
     public void Should_get_buyable_items()
     {
-      var getBuyableItemsAsyncResponse = _habitRpgService.GetBuyableItemsAsync();
+      var getBuyableItemsAsyncResponse = _userClient.GetBuyableItemsAsync();
       getBuyableItemsAsyncResponse.Wait();
 
       Assert.IsNotEmpty(getBuyableItemsAsyncResponse.Result);
-    }
-
-    [Test]
-    public void Should_get_group_tavern()
-    {
-      var getGroupAsyncResponse = _habitRpgService.GetGroupAsync("habitrpg");
-      getGroupAsyncResponse.Wait();
-
-      Assert.IsNotNull(getGroupAsyncResponse.Result);
-      Assert.IsNotNull(getGroupAsyncResponse.Result.Id);
-      Assert.IsNotEmpty(getGroupAsyncResponse.Result.Chat);
-    }
-     
-    [Test]
-    public void Should_get_tavern_chat()
-    {
-      var getGroupChatAsyncResponse = _habitRpgService.GetGroupChatAsync("habitrpg");
-      getGroupChatAsyncResponse.Wait();
-
-      Assert.IsNotEmpty(getGroupChatAsyncResponse.Result);
     }
 
     private static void AssertTask(Task expected, Task actual)
