@@ -1,11 +1,4 @@
-﻿using HabitRPG.Client.Model;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using Attribute = HabitRPG.Client.Model.Attribute;
-using Task = HabitRPG.Client.Model.Task;
+﻿using NUnit.Framework;
 
 namespace HabitRPG.Client.Test
 {

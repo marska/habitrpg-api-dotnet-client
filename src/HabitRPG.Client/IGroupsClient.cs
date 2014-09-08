@@ -7,8 +7,6 @@ namespace HabitRPG.Client
 {
   public interface IGroupsClient
   {
-    // todo: implement groups Show/Hide List Operations Expand Operations Raw
-
     /// <summary>
     /// GET /groups Get a list of groups 
     /// </summary>
