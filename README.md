@@ -31,7 +31,7 @@ var habitTask = new Todo
 var response = await _habitRpgService.CreateTask(todo);
 ```
 
-# Implemented methods
+# Supported methods
 
 ## IUserClient
 ```cs
@@ -47,6 +47,10 @@ Task<List<Item>> GetBuyableItemsAsync();
 Task BuyItemAsync(string key);
 Task<User> GetUserAsync();
 
+```
+## IMembersClient
+```cs
+Task<Member> GetMemberAsync(string id);
 ```
 
 [![MyGet Build Status](https://www.myget.org/BuildSource/Badge/marska?identifier=21b63643-1cd1-4ac0-9fda-e16de34452ab)](https://www.myget.org/)
