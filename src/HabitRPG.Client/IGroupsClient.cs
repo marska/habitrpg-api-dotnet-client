@@ -60,7 +60,7 @@ namespace HabitRPG.Client
     /// <param name="groupId"></param>
     /// <param name="messageId"></param>
     /// <returns></returns>
-    Task DeleteChatMessage(string groupId, string messageId);
+    Task DeleteChatMessageAsync(string groupId, string messageId);
 
     /// <summary>
     /// POST /groups/{gid}/chat/{mid}/like 
@@ -70,6 +70,6 @@ namespace HabitRPG.Client
     /// <param name="groupId"></param>
     /// <param name="messageId"></param>
     /// <returns></returns>
-    Task LikeChatMessage(string groupId, string messageId);
+    Task LikeChatMessageAsync(string groupId, string messageId);
   }
 }

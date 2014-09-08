@@ -89,7 +89,7 @@ namespace HabitRPG.Client
       return GetResult<ChatMessage>(response);
     }
 
-    public async Task DeleteChatMessage(string groupId, string messageId)
+    public async Task DeleteChatMessageAsync(string groupId, string messageId)
     {
       if (groupId == null)
       {
@@ -104,7 +104,7 @@ namespace HabitRPG.Client
       await HttpClient.DeleteAsync(String.Format("groups/{0}/chat/{1}/like", groupId, messageId));
     }
 
-    public async Task LikeChatMessage(string groupId, string messageId)
+    public async Task LikeChatMessageAsync(string groupId, string messageId)
     {
       if (groupId == null)
       {
