@@ -75,6 +75,9 @@
     <Compile Include="Converters\TaskConverter.cs" />
     <Compile Include="Converters\TimestampConverter.cs" />
     <Compile Include="GroupsClient.cs" />
+    <Compile Include="Model\Drop.cs" />
+    <Compile Include="Model\RandomReward.cs" />
+    <Compile Include="Model\ScoreResult.cs" />
     <Compile Include="UserClient.cs" />
     <Compile Include="HabitRpgConfiguration.cs" />
     <Compile Include="Extensions\HttpClientExtension.cs" />
