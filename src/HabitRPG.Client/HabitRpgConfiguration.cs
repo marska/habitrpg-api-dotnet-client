@@ -13,7 +13,8 @@ namespace HabitRPG.Client
       {
         Converters = new List<JsonConverter>
             {
-               new TaskConverter()
+               new TaskConverter(),
+               new ChallengeConverter()
             },
 
 #if DEBUG
