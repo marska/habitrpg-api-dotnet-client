@@ -31,7 +31,7 @@ var response = await _userClient.GetTasksAsync();
 ## IUserClient
 ```cs
 
-Task<object> ScoreTaskAsync(string id, Direction direction);
+Task<ScoreResult> ScoreTaskAsync(string id, Direction direction);
 Task<List<ITask>> GetTasksAsync();
 Task<T> CreateTaskAsync<T>(T task) where T : ITask;
 Task<T> GetTaskAsync<T>(string taskId) where T : ITask;
@@ -41,6 +41,9 @@ Task<List<ITask>> ClearCompletedAsync();
 Task<List<Item>> GetBuyableItemsAsync();
 Task BuyItemAsync(string key);
 Task<User> GetUserAsync();
+Task CreateTagAsync(Tag tag);
+Task UpdateTagAsync(Tag tag);    
+Task DeleteTagAsync(string tagId);
 
 ```
 ## IMembersClient
