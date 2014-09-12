@@ -17,8 +17,7 @@ namespace HabitRPG.Client
     /// <param name="id">ID of the task to score. If this task doesn't exist, a task will be created automatically</param>
     /// <param name="direction">Either 'up' or 'down'</param>
     /// <returns>Magic object :)</returns>
-    // todo: implement response object
-    Task<object> ScoreTaskAsync(string id, Direction direction);
+    Task<ScoreResult> ScoreTaskAsync(string id, Direction direction);
 
     /// <summary>
     /// GET /user/tasks Get all user's tasks
@@ -116,10 +115,30 @@ namespace HabitRPG.Client
     // todo: implement POST /user/class/cast/{spell} Casts a spell on a target.
     // todo: implement POST /user/unlock Unlock a certain gem-purchaseable path (or multiple paths)
     // todo: implement POST /user/batch-update This is an advanced route which is useful for apps which might for example need offline support. You can send a whole batch of user-based operations, which allows you to queue them up offline and send them all at once. The format is {op:'nameOfOperation',parameters:{},body:{},query:{}}
-    // todo: implement POST /user/tags Create a new tag
     // todo: implement POST /user/tags/sort Sort tags
-    // todo: implement PUT /user/tags/{id} Edit a tag
-    // todo: implement DELETE /user/tags/{id} Delete a tag
 
+    /// <summary>
+    /// POST /user/tags
+    /// 
+    /// Create a new tag 
+    /// </summary>
+    /// <returns></returns>
+    Task CreateTagAsync(Tag tag);
+
+    /// <summary>
+    /// PUT /user/tags/{id}
+    /// 
+    /// Update a tag 
+    /// </summary>
+    /// <returns></returns>
+    Task UpdateTagAsync(Tag tag);    
+     
+    /// <summary>
+    /// DELETE /user/tags/{id}
+    /// 
+    /// Delete a tag 
+    /// </summary>
+    /// <returns></returns>
+    Task DeleteTagAsync(string tagId);
   }
 }

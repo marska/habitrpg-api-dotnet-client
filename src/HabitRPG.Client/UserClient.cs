@@ -70,7 +70,33 @@ namespace HabitRPG.Client
       return GetResult<User>(response);
     }
 
-    public async Task<object> ScoreTaskAsync(string id, Direction direction)
+    public async Task CreateTagAsync(Tag tag)
+    {
+      var response = await HttpClient.PostAsJsonAsync("user/tags", tag);
+
+      response.EnsureSuccessStatusCode();
+    }
+
+    public async Task UpdateTagAsync(Tag tag)
+    {
+      var response = await HttpClient.PutAsJsonAsync(String.Format("user/tags/{0}", tag.Id), tag);
+
+      response.EnsureSuccessStatusCode();
+    }
+
+    public async Task DeleteTagAsync(string tagId)
+    {
+      if (tagId == null)
+      {
+        throw new ArgumentNullException("tagId");
+      }
+
+      var response = await HttpClient.DeleteAsync(String.Format("user/tags/{0}", tagId));
+
+      response.EnsureSuccessStatusCode();
+    }
+
+    public async Task<ScoreResult> ScoreTaskAsync(string id, Direction direction)
     {
       if (id == null)
       {
@@ -79,7 +105,7 @@ namespace HabitRPG.Client
 
       var response = await HttpClient.PostAsync(string.Format("user/tasks/{0}/{1}", id, direction.ToString().ToLower()), null);
 
-      return GetResult<object>(response);
+      return GetResult<ScoreResult>(response);
     }
 
     public async Task<List<Item>> GetBuyableItemsAsync()
