@@ -9,6 +9,6 @@ namespace HabitRPG.Client.Model
       public Guid Id { get; set; }
 
       [JsonProperty("name")]
-      public String Name { get; set; }
+      public string Name { get; set; }
    }
 }
