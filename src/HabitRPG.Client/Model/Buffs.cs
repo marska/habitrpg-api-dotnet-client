@@ -7,6 +7,9 @@ namespace HabitRPG.Client.Model
       [JsonProperty("snowball")]
       public bool Snowball { get; set; }
 
+      [JsonProperty("spookdust")]
+      public bool SpookyDust { get; set; }
+
       [JsonProperty("stealth")]
       public int Stealth { get; set; }
 

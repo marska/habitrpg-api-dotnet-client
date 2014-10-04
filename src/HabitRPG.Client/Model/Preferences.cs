@@ -27,5 +27,8 @@ namespace HabitRPG.Client.Model
 
       [JsonProperty("background")]
       public string Background { get; set; }
+
+      [JsonProperty("dayStart")]
+      public int DayStartsAt { get; set; }
    }
 }
