@@ -21,6 +21,12 @@ namespace HabitRPG.Client.Model
 
       [JsonProperty("event")]
       public Event Event { get; set; }
+
+      [JsonProperty("text")]
+      public string Text { get; set; }
+
+      [JsonProperty("notes")]
+      public string Notes { get; set; }
    }
 
    public class Event
