@@ -3,6 +3,8 @@ HabitRPG API .NET Client
 
 .NET Async HabitRPG Client Library
 
+[![MyGet Build Status](https://www.myget.org/BuildSource/Badge/marska?identifier=21b63643-1cd1-4ac0-9fda-e16de34452ab)](https://www.myget.org/)
+
 # How to install
 
 To install HabitRPG.Client, run the following command in the [Package Manager Console](https://www.nuget.org/packages/HabitRPG.Client/)
@@ -58,7 +60,8 @@ Task<List<ChatMessage>> GetGroupChatAsync(string groupId);
 Task<ChatMessage> SendChatMessageAsync(string groupId, string message);
 Task DeleteChatMessageAsync(string groupId, string messageId);
 Task LikeChatMessageAsync(string groupId, string messageId);
-
 ```
-[![MyGet Build Status](https://www.myget.org/BuildSource/Badge/marska?identifier=21b63643-1cd1-4ac0-9fda-e16de34452ab)](https://www.myget.org/)
-
+## IContentClient
+```cs
+Task<Content> GetContentAsync(string language = "");
+```
