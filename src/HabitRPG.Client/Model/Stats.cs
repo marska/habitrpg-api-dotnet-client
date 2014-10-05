@@ -4,6 +4,9 @@ namespace HabitRPG.Client.Model
 {
    public class Stats : StatsBase
    {
+      [JsonProperty("buffs")]
+      public Buffs Buffs { get; set; }
+
       [JsonProperty("class")]
       public string Class { get; set; }
 
