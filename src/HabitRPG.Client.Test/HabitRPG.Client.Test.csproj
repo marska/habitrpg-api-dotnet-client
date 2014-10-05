@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentClientIntegrationTests.cs" />
     <Compile Include="GroupsClientIntegrationTests.cs" />
     <Compile Include="UserClientIntegrationTests.cs" />
     <Compile Include="IntegrationBase.cs" />

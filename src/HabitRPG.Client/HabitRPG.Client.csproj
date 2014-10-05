@@ -72,13 +72,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ClientBase.cs" />
+    <Compile Include="ContentClient.cs" />
     <Compile Include="Converters\ChallengeConverter.cs" />
     <Compile Include="Converters\TaskConverter.cs" />
     <Compile Include="Converters\TimestampConverter.cs" />
     <Compile Include="GroupsClient.cs" />
+    <Compile Include="Model\Content.cs" />
     <Compile Include="Model\Drop.cs" />
     <Compile Include="Model\RandomReward.cs" />
     <Compile Include="Model\ScoreResult.cs" />
+    <Compile Include="Model\UserDefaults.cs" />
     <Compile Include="UserClient.cs" />
     <Compile Include="HabitRpgConfiguration.cs" />
     <Compile Include="Extensions\HttpClientExtension.cs" />
