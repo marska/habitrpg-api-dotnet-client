@@ -14,7 +14,7 @@ namespace HabitRPG.Client.Model
       public string Dialog { get; set; }
 
       [JsonProperty("value")]
-      public string Value { get; set; }
+      public double Value { get; set; }
 
       [JsonProperty("key")]
       public string Key { get; set; }

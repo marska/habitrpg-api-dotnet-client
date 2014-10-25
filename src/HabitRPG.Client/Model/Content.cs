@@ -6,6 +6,21 @@ namespace HabitRPG.Client.Model
 {
    public class Content
    {
+      [JsonProperty("eggs")]
+      public Dictionary<String, Egg> Eggs { get; set; }
+
+      [JsonProperty("dropEggs")]
+      public Dictionary<String, Egg> DropEggs { get; set
+
+      [JsonProperty("questEggs")]
+      public Dictionary<String, Egg> QuestEggs { get; set; }
+
+      [JsonProperty("food")]
+      public Dictionary<String, Food> Food { get; set; }
+
+      [JsonProperty("hatchingPotions")]
+      public Dictionary<String, Drop> HatchingPotions { get; set; }
+
       [JsonProperty("classes")]
       public List<string> Classes { get; set; }
 
