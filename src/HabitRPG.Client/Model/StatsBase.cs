@@ -5,15 +5,15 @@ namespace HabitRPG.Client.Model
    public class StatsBase
    {
       [JsonProperty("con")]
-      public int Con { get; set; }
+      public double Con { get; set; }
 
       [JsonProperty("int")]
-      public int Int { get; set; }
+      public double Int { get; set; }
 
       [JsonProperty("per")]
-      public int Per { get; set; }
+      public double Per { get; set; }
 
       [JsonProperty("str")]
-      public int Str { get; set; }
+      public double Str { get; set; }
    }
 }
