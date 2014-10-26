@@ -10,7 +10,7 @@ namespace HabitRPG.Client.Model
       public Dictionary<String, Egg> Eggs { get; set; }
 
       [JsonProperty("dropEggs")]
-      public Dictionary<String, Egg> DropEggs { get; set
+      public Dictionary<String, Egg> DropEggs { get; set; }
 
       [JsonProperty("questEggs")]
       public Dictionary<String, Egg> QuestEggs { get; set; }
