@@ -207,6 +207,15 @@ namespace HabitRPG.Client.Test
     }
 
     [Test]
+    public void Should_equip_Weapon()
+    {
+      var response = _userClient.InventoryEquip("equipped", "weapon_warrior_1");
+      response.Wait();
+
+      Assert.IsNotEmpty(response.Result.Gear.Equipped);
+    }
+
+    [Test]
     public void Should_clear_completed()
     {
       var todo = CreateTodo();

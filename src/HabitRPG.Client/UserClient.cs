@@ -63,6 +63,25 @@ namespace HabitRPG.Client
       return GetResult<T>(response);
     }
 
+    public async Task<Items> InventoryEquip(string type, string key)
+    {
+      if (type == null)
+      {
+        throw new ArgumentNullException("type");
+      }
+
+      if (key == null)
+      {
+        throw new ArgumentNullException("key");
+      }
+
+      var response = await HttpClient.PostAsync(String.Format("user/inventory/equip/{0}/{1}", type, key), null);
+
+      response.EnsureSuccessStatusCode();
+
+      return GetResult<Items>(response);
+    }
+
     public async Task<User> GetUserAsync()
     {
       var response = await HttpClient.GetAsync("user");

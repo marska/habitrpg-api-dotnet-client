@@ -88,12 +88,22 @@ namespace HabitRPG.Client
     /// <param name="key"></param>
     /// <returns></returns>
     Task BuyItemAsync(string key);
-    
-    //POST /user/inventory/sell/{type}/{key} Sell inventory items back to Alexander
-    //POST /user/inventory/purchase/{type}/{key} Purchase a gem-purchaseable item from Alexander
-    //POST /user/inventory/feed/{pet}/{food} Feed your pet some food
-    //POST /user/inventory/equip/{type}/{key} Equip an item (either pet, mount, equipped or costume)
-    //POST /user/inventory/hatch/{egg}/{hatchingPotion} Pour a hatching potion on an egg
+
+    // todo: implement POST /user/inventory/sell/{type}/{key} Sell inventory items back to Alexander
+    // todo: implement POST /user/inventory/purchase/{type}/{key} Purchase a gem-purchaseable item from Alexander
+    // todo: implement POST /user/inventory/feed/{pet}/{food} Feed your pet some food
+
+    /// <summary>
+    /// POST /user/inventory/equip/{type}/{key}
+    /// 
+    /// Equip an item (either pet, mount, equipped or costume)  
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    Task<Items> InventoryEquip(string type, string key);
+
+    // todo: implement POST /user/inventory/hatch/{egg}/{hatchingPotion} Pour a hatching potion on an egg
     
     /// <summary>
     /// GET /user
