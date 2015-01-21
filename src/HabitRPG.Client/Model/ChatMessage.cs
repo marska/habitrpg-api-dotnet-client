@@ -25,6 +25,7 @@ namespace HabitRPG.Client.Model
       [JsonProperty("likes")]
       public Dictionary<Guid, Boolean> Likes { get; set; }
 
+	  [JsonConverter(typeof(GuidConverter))]
       [JsonProperty("uuid")]
       public Guid UserId { get; set; }
 
