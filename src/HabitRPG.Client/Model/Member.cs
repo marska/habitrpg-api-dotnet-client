@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using HabitRPG.Client.Converters;
 
 namespace HabitRPG.Client.Model
 {
@@ -27,7 +28,10 @@ namespace HabitRPG.Client.Model
       [JsonProperty("preferences")]
       public Preferences Preferences { get; set; }
 
-      [JsonProperty("contributor")]
-      public Contributor Contributor { get; set; }
+		[JsonProperty("contributor")]
+		public Contributor Contributor { get; set; }
+
+		[JsonProperty("auth")]
+		public Authentication Authentication { get; set; }
    }
 }
