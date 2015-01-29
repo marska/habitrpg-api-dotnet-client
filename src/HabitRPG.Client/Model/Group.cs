@@ -27,13 +27,16 @@ namespace HabitRPG.Client.Model
       [JsonProperty("memberCount")]
       public int MemberCount { get; set; }
 
-      [JsonProperty("type")]
-      public string Type { get; set; }
+		[JsonProperty("type")]
+		public string Type { get; set; }
+
+		[JsonProperty("logo")]
+		public string Logo { get; set; }
 
       [JsonProperty("chat")]
       public List<ChatMessage> Chat { get; set; }
 
-      [JsonProperty("member")]
+      [JsonProperty("members")]
       public List<Member> Members { get; set; } 
    }
 }

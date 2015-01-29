@@ -33,5 +33,9 @@ namespace HabitRPG.Client.Model
 
 		[JsonProperty("auth")]
 		public Authentication Authentication { get; set; }
+
+		[JsonProperty("achievements")]
+		public Achievements Achievements { get; set; }
+
    }
 }
