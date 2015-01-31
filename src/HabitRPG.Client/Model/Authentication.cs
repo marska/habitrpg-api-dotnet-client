@@ -5,7 +5,6 @@ using HabitRPG.Client.Converters;
 
 namespace HabitRPG.Client.Model
 {
-
 	public class Authentication
 	{
 		[JsonProperty("local")]
@@ -13,7 +12,5 @@ namespace HabitRPG.Client.Model
 
 		[JsonProperty("timestamps")]
 		public TimeAuthentication Timestamps { get; set; }
-
 	}
-	
 }

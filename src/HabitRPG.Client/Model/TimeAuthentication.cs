@@ -5,7 +5,6 @@ using HabitRPG.Client.Converters;
 
 namespace HabitRPG.Client.Model
 {
-
 	public class TimeAuthentication
 	{
 		[JsonConverter(typeof(TimestampConverter))]
@@ -16,5 +15,4 @@ namespace HabitRPG.Client.Model
 		[JsonProperty("created")]
 		public DateTime Created { get; set; }
 	}
-	
 }

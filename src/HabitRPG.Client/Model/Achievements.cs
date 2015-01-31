@@ -5,7 +5,6 @@ using HabitRPG.Client.Converters;
 
 namespace HabitRPG.Client.Model
 {
-   
 	public class Achievements
 	{
 		[JsonProperty("challenges")]
@@ -20,5 +19,10 @@ namespace HabitRPG.Client.Model
 		[JsonProperty("quests")]
 		public Dictionary<string, int> Quests { get; set; }
 
+		[JsonProperty("habitBirthdays")]
+		public int HabitBirthdays { get; set; }
+
+		[JsonProperty("habitBirthday")]
+		public int HabitBirthday { get; set; }
 	}
 }

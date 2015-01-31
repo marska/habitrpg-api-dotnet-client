@@ -3,8 +3,8 @@ using System;
 
 namespace HabitRPG.Client.Model
 {
-   public class Profile
-   {
+	public class Profile
+	{
 		[JsonProperty("name")]
 		public String Name { get; set; }
 
@@ -13,5 +13,5 @@ namespace HabitRPG.Client.Model
 
 		[JsonProperty("blurb")]
 		public String Blurb { get; set; }
-   }
+	}
 }
