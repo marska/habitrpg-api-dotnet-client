@@ -27,6 +27,11 @@ namespace HabitRPG.Client.Model
 
       [JsonProperty("notes")]
       public string Notes { get; set; }
+
+		public override string ToString()
+		{
+			return string.Format("[Item: Value={0}, Type={1}, Key={2}, Klass={3}, Index={4}, Event={5}, Text={6}, Notes={7}]", Value, Type, Key, Klass, Index, Event, Text, Notes);
+		}
    }
 
    public class Event

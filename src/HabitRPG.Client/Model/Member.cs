@@ -34,6 +34,11 @@ namespace HabitRPG.Client.Model
 		[JsonProperty("auth")]
 		public Authentication Authentication { get; set; }
 
+		public override string ToString()
+		{
+			return string.Format("[Member: Balance={0}, Id={1}, Items={2}, Profile={3}, Stats={4}, Tags={5}, Preferences={6}, Contributor={7}, Authentication={8}]", Balance, Id, Items, Profile, Stats, Tags, Preferences, Contributor, Authentication);
+		}
+
 		[JsonProperty("achievements")]
 		public Achievements Achievements { get; set; }
 
