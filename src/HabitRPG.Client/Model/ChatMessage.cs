@@ -29,6 +29,9 @@ namespace HabitRPG.Client.Model
 		[JsonProperty("uuid")]
 		public Guid UserId { get; set; }
 
+		[JsonProperty("flagCount")]
+		public int FlagCount { get; set; }
+
 		[JsonProperty("contributor")]
 		public Contributor Contributor { get; set; }
 

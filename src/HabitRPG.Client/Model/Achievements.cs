@@ -23,6 +23,6 @@ namespace HabitRPG.Client.Model
 		public int HabitBirthdays { get; set; }
 
 		[JsonProperty("habitBirthday")]
-		public int HabitBirthday { get; set; }
+		public bool HabitBirthday { get; set; }
 	}
 }

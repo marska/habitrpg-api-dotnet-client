@@ -19,7 +19,7 @@ namespace HabitRPG.Client.Model
 		public Dictionary<String, Food> Food { get; set; }
 
 		[JsonProperty("hatchingPotions")]
-		public Dictionary<String, int> HatchingPotions { get; set; }
+		public Dictionary<String, Drop> HatchingPotions { get; set; }
 
 		[JsonProperty("classes")]
 		public List<string> Classes { get; set; }

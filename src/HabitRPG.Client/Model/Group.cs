@@ -33,10 +33,19 @@ namespace HabitRPG.Client.Model
 		[JsonProperty("logo")]
 		public string Logo { get; set; }
 
+		[JsonProperty("quest")]
+		public Quest Quest { get; set; }
+
 		[JsonProperty("chat")]
 		public List<ChatMessage> Chat { get; set; }
 
 		[JsonProperty("members")]
 		public List<Member> Members { get; set; }
+
+		[JsonProperty("challengeCount")]
+		public int ChallengeCount { get; set; }
+
+		[JsonProperty("challenges")]
+		public List<string> Challenges { get; set; }
 	}
 }

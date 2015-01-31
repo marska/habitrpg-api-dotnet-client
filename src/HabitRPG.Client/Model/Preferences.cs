@@ -66,9 +66,6 @@ namespace HabitRPG.Client.Model
 		[JsonProperty("hideHeader")]
 		public bool HideHeader { get; set; }
 
-		[JsonProperty("dayStart")]
-		public int DayStart { get; set; }
-
 		[JsonProperty("timezoneOffset")]
 		public int TimezoneOffset { get; set; }
 
