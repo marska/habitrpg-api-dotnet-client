@@ -72,11 +72,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ClientBase.cs" />
-    <Compile Include="ContentClient.cs" />
     <Compile Include="Converters\ChallengeConverter.cs" />
     <Compile Include="Converters\TaskConverter.cs" />
     <Compile Include="Converters\TimestampConverter.cs" />
-    <Compile Include="GroupsClient.cs" />
     <Compile Include="Model\Content.cs" />
     <Compile Include="Model\Drop.cs" />
     <Compile Include="Model\Egg.cs" />
@@ -84,19 +82,8 @@
     <Compile Include="Model\RandomReward.cs" />
     <Compile Include="Model\ScoreResult.cs" />
     <Compile Include="Model\UserDefaults.cs" />
-    <Compile Include="UserClient.cs" />
     <Compile Include="HabitRpgConfiguration.cs" />
     <Compile Include="Extensions\HttpClientExtension.cs" />
-    <Compile Include="IChallengesClient.cs" />
-    <Compile Include="IContentClient.cs" />
-    <Compile Include="IExportClient.cs" />
-    <Compile Include="IGroupsClient.cs" />
-    <Compile Include="IHallClient.cs" />
-    <Compile Include="ILogger.cs" />
-    <Compile Include="IMembersClient.cs" />
-    <Compile Include="IStatusClient.cs" />
-    <Compile Include="IUserClient.cs" />
-    <Compile Include="MembersClient.cs" />
     <Compile Include="Model\Attribute.cs" />
     <Compile Include="Model\Broken.cs" />
     <Compile Include="Model\Buffs.cs" />
@@ -126,6 +113,28 @@
     <Compile Include="Model\Todo.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Model\Achievements.cs" />
+    <Compile Include="Model\Authentication.cs" />
+    <Compile Include="Model\ContentGear.cs" />
+    <Compile Include="Model\Event.cs" />
+    <Compile Include="Model\LocalAuthentication.cs" />
+    <Compile Include="Model\Quest.cs" />
+    <Compile Include="Model\TimeAuthentication.cs" />
+    <Compile Include="Model\WebHook.cs" />
+    <Compile Include="Converters\GuidConverter.cs" />
+    <Compile Include="Interfaces\IChallengesClient.cs" />
+    <Compile Include="Interfaces\IContentClient.cs" />
+    <Compile Include="Interfaces\IExportClient.cs" />
+    <Compile Include="Interfaces\IGroupsClient.cs" />
+    <Compile Include="Interfaces\IHallClient.cs" />
+    <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\IMembersClient.cs" />
+    <Compile Include="Interfaces\IStatusClient.cs" />
+    <Compile Include="Interfaces\IUserClient.cs" />
+    <Compile Include="Clients\ContentClient.cs" />
+    <Compile Include="Clients\GroupsClient.cs" />
+    <Compile Include="Clients\MembersClient.cs" />
+    <Compile Include="Clients\UserClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -145,4 +154,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+    <Folder Include="Clients\" />
+  </ItemGroup>
 </Project>
