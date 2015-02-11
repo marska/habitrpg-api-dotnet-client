@@ -6,8 +6,17 @@ namespace HabitRPG.Client.Model
 {
 	public class Challenge
 	{
+        /// <summary>
+        /// When we use Task
+        /// </summary>
 		[JsonProperty("id")]
 		public Guid Id { get; set; }
+
+        /// <summary>
+        /// When we use Group
+        /// </summary>
+        [JsonProperty("_id")]
+        public Guid Id2 { get; set; }
 
 		[JsonProperty("broken")]
 		[JsonConverter(typeof(StringEnumConverter))]
@@ -15,5 +24,8 @@ namespace HabitRPG.Client.Model
 
 		[JsonProperty("winner")]
 		public string Winner { get; set; }
+
+        [JsonProperty("name")]
+	    public string Name { get; set; }
 	}
 }
