@@ -1,7 +1,10 @@
-﻿namespace HabitRPG.Client
+﻿using System.Threading.Tasks;
+using HabitRPG.Client.Model;
+
+namespace HabitRPG.Client
 {
-  public interface IStatusClient
-  {
-    // todo: implement GET /status Returns the status of the server (up or down)    
-  }
+	public interface IStatusClient
+	{
+		Task<Status> GetStatusAsync();
+	}
 }

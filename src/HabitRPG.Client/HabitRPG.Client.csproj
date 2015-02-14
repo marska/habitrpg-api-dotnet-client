@@ -135,6 +135,8 @@
     <Compile Include="Clients\GroupsClient.cs" />
     <Compile Include="Clients\MembersClient.cs" />
     <Compile Include="Clients\UserClient.cs" />
+    <Compile Include="Clients\StatusClient.cs" />
+    <Compile Include="Model\Status.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
