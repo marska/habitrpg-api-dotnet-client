@@ -5,6 +5,12 @@ namespace HabitRPG.Client
 {
 	public interface IStatusClient
 	{
-		Task<Status> GetStatusAsync();
+		/// <summary>
+		/// GET /status Returns the status of the server (up or down)
+		/// 
+		/// Returns the status of the server (up or down)
+		/// </summary>
+		/// <returns>Status class holding the server status string</returns>
+		Task<ServerStatus> GetStatusAsync();
 	}
 }

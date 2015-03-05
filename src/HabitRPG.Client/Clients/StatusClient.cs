@@ -34,11 +34,11 @@ namespace HabitRPG.Client
 		{
 		}
 
-		public async Task<Status> GetStatusAsync()
+		public async Task<ServerStatus> GetStatusAsync()
 		{
 			var response = await HttpClient.GetAsync("status");
 
-			return GetResult<Status>(response);
+			return GetResult<ServerStatus>(response);
 		}
 	}
 }
