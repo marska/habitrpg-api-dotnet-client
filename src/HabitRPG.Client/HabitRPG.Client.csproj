@@ -136,7 +136,7 @@
     <Compile Include="Clients\MembersClient.cs" />
     <Compile Include="Clients\UserClient.cs" />
     <Compile Include="Clients\StatusClient.cs" />
-    <Compile Include="Model\Status.cs" />
+    <Compile Include="Model\ServerStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
