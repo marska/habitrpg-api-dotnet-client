@@ -18,7 +18,7 @@ namespace HabitRPG.Client.Model
 	{
 		public Task()
 		{
-			Tags = new Dictionary<Guid, bool>();
+			Tags = new List<Guid>();
 			Priority = Difficulty.Easy;
 		}
 
@@ -26,7 +26,7 @@ namespace HabitRPG.Client.Model
 		public string Id { get; set; }
 
 		[JsonConverter(typeof(IsoDateTimeConverter))]
-		[JsonProperty("dateCreated")]
+		[JsonProperty("createdAt")]
 		public DateTime? DateCreated { get; set; }
 
 		[JsonProperty("text")]
@@ -36,7 +36,7 @@ namespace HabitRPG.Client.Model
 		public string Notes { get; set; }
 
 		[JsonProperty("tags")]
-		public Dictionary<Guid, bool> Tags { get; set; }
+		public List<Guid> Tags { get; set; }
 
 		[JsonProperty("value")]
 		public double Value { get; set; }

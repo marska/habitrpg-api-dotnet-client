@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
+using HabitRPG.Client.Model;
 
 namespace HabitRPG.Client.Common
 {
@@ -48,7 +49,7 @@ namespace HabitRPG.Client.Common
 
       HttpClient = httpClient;
 
-      HttpClient.BaseAddress = new Uri(habitRpgConfiguration.ServiceUri, "api/v2/");
+      HttpClient.BaseAddress = new Uri(habitRpgConfiguration.ServiceUri, "api/v3/");
       HttpClient.DefaultRequestHeaders.Accept.Clear();
       HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
       HttpClient.DefaultRequestHeaders.Add("x-api-user", habitRpgConfiguration.UserId.ToString());
@@ -76,9 +77,9 @@ namespace HabitRPG.Client.Common
         Logger.Write("Result: {0} ", contentJson);
       }
 
-      var deserializeObject = JsonConvert.DeserializeObject<T>(contentJson, _configuration.SerializerSettings);
+      var deserializeObject = JsonConvert.DeserializeObject<ApiResponse<T>>(contentJson, _configuration.SerializerSettings);
 
-      return deserializeObject;
+      return deserializeObject.Data;
     }
 
     #region Dispose

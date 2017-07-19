@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using HabitRPG.Client.Common;
 using HabitRPG.Client.Model;
+using System.Net;
+using System.Net.Http;
 
 namespace HabitRPG.Client
 {

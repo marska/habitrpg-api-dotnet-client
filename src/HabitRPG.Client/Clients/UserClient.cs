@@ -39,14 +39,15 @@ namespace HabitRPG.Client
         throw new ArgumentNullException("task");
       }
 
-      var response = await HttpClient.PostAsJsonAsync("user/tasks", task);
+      var response = await HttpClient.PostAsJsonAsync("tasks/user", task);
 
       return GetResult<T>(response);
     }
 
+    //DONEV3
     public async Task<List<ITask>> GetTasksAsync()
     {
-      var response = await HttpClient.GetAsync("user/tasks");
+      var response = await HttpClient.GetAsync("tasks/user");
 
       return GetResult<List<ITask>>(response);
     }
@@ -58,7 +59,7 @@ namespace HabitRPG.Client
         throw new ArgumentNullException("id");
       }
 
-      var response = await HttpClient.GetAsync(string.Format("user/tasks/{0}", id));
+      var response = await HttpClient.GetAsync(string.Format("tasks/{0}", id));
 
       return GetResult<T>(response);
     }
@@ -75,7 +76,7 @@ namespace HabitRPG.Client
         throw new ArgumentNullException("key");
       }
 
-      var response = await HttpClient.PostAsync(String.Format("user/inventory/equip/{0}/{1}", type, key), null);
+      var response = await HttpClient.PostAsync(String.Format("user/equip/{0}/{1}", type, key), null);
 
       response.EnsureSuccessStatusCode();
 
@@ -91,14 +92,14 @@ namespace HabitRPG.Client
 
     public async Task CreateTagAsync(Tag tag)
     {
-      var response = await HttpClient.PostAsJsonAsync("user/tags", tag);
+      var response = await HttpClient.PostAsJsonAsync("tags", tag);
 
       response.EnsureSuccessStatusCode();
     }
 
     public async Task UpdateTagAsync(Tag tag)
     {
-      var response = await HttpClient.PutAsJsonAsync(String.Format("user/tags/{0}", tag.Id), tag);
+      var response = await HttpClient.PutAsJsonAsync(String.Format("tags/{0}", tag.Id), tag);
 
       response.EnsureSuccessStatusCode();
     }
@@ -110,7 +111,7 @@ namespace HabitRPG.Client
         throw new ArgumentNullException("tagId");
       }
 
-      var response = await HttpClient.DeleteAsync(String.Format("user/tags/{0}", tagId));
+      var response = await HttpClient.DeleteAsync(String.Format("tags/{0}", tagId));
 
       response.EnsureSuccessStatusCode();
     }
@@ -122,7 +123,7 @@ namespace HabitRPG.Client
         throw new ArgumentNullException("id");
       }
 
-      var response = await HttpClient.PostAsync(string.Format("user/tasks/{0}/{1}", id, direction.ToString().ToLower()), null);
+      var response = await HttpClient.PostAsync(string.Format("tasks/{0}/score/{1}", id, direction.ToString().ToLower()), null);
 
       return GetResult<ScoreResult>(response);
     }
@@ -134,6 +135,7 @@ namespace HabitRPG.Client
       return GetResult<List<Item>>(response);
     }
 
+    // TODO: Need to expand to fix this to accommodate all purchases
     public async Task BuyItemAsync(string key)
     {
       if (key == null)
@@ -146,27 +148,28 @@ namespace HabitRPG.Client
       response.EnsureSuccessStatusCode();
     }
 
+    // TODO: Need to fix this to include group ID
     public async Task SetGroupChatAsSeenAsync()
     {
-      await HttpClient.PostAsync(String.Format("groups/{0}/seen"), null);
+      await HttpClient.PostAsync(String.Format("groups/{0}/chat/seen"), null);
     }
 
     public async Task<T> UpdateTaskAsync<T>(T taskObj) where T : ITask
     {
-      var response = await HttpClient.PutAsJsonAsync(string.Format("user/tasks/{0}", taskObj.Id), taskObj);
+      var response = await HttpClient.PutAsJsonAsync(string.Format("tasks/{0}", taskObj.Id), taskObj);
 
       return GetResult<T>(response);
     }
 
     public async Task DeleteTaskAsync(string id)
     {
-      await HttpClient.DeleteAsync(string.Format("user/tasks/{0}", id));
+      await HttpClient.DeleteAsync(string.Format("tasks/{0}", id));
     }
 
     public async Task<List<ITask>> ClearCompletedAsync()
     {
-      var response = await HttpClient.PostAsync("user/tasks/clear-completed", null);
-
+      var response = await HttpClient.PostAsync("tasks/clearCompletedTodos", null);
+      // TODO: Return something?
       return GetResult<List<ITask>>(response);
     }
   }
