@@ -13,5 +13,8 @@ namespace HabitRPG.Client.Model
 
         [JsonProperty("data")]
         public T Data { get; protected set; }
+
+        [JsonProperty("message")]
+        public string Message { get; protected set; }
     }
 }

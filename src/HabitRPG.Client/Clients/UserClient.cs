@@ -166,11 +166,9 @@ namespace HabitRPG.Client
       await HttpClient.DeleteAsync(string.Format("tasks/{0}", id));
     }
 
-    public async Task<List<ITask>> ClearCompletedAsync()
+    public async Task ClearCompletedAsync()
     {
-      var response = await HttpClient.PostAsync("tasks/clearCompletedTodos", null);
-      // TODO: Return something?
-      return GetResult<List<ITask>>(response);
+      await HttpClient.PostAsync("tasks/clearCompletedTodos", null);
     }
   }
 }

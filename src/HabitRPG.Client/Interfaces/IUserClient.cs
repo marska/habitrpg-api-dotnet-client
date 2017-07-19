@@ -68,7 +68,7 @@ namespace HabitRPG.Client
     /// Clears competed To-Dos (needed periodically for performance).
     /// </summary>
     /// <returns></returns>
-    Task<List<ITask>> ClearCompletedAsync();
+    Task ClearCompletedAsync();
 
     // todo: implement POST /user/tasks/{id}/unlink 
 

@@ -113,11 +113,6 @@ namespace HabitRPG.Client.Test
         [Test]
         public void Should_return_all_tasks()
         {
-            // Setup
-            //var habitTask = CreateHabit();
-            //var task = _userClient.CreateTaskAsync(habitTask);
-            //task.Wait();
-
             // Action
             var response = _userClient.GetTasksAsync();
             response.Wait();
@@ -215,13 +210,11 @@ namespace HabitRPG.Client.Test
             var createTaskResponse = _userClient.CreateTaskAsync(todo);
             createTaskResponse.Wait();
 
-            var scoreTaskResponse = _userClient.ScoreTaskAsync(todo.Id, Direction.Up);
+            var scoreTaskResponse = _userClient.ScoreTaskAsync(createTaskResponse.Result.Id, Direction.Up);
             scoreTaskResponse.Wait();
 
             var clearCompletedResponse = _userClient.ClearCompletedAsync();
             clearCompletedResponse.Wait();
-
-            Assert.True(clearCompletedResponse.Result.Any(t => t.Id.Equals(todo.Id)));
         }
 
         [Test]
