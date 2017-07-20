@@ -133,8 +133,7 @@ namespace HabitRPG.Client
 
             return GetResult<List<Item>>(response);
         }
-
-        // TODO: Need to expand to fix this to accommodate all purchases
+        
         public async Task BuyItemAsync(string key)
         {
             if (key == null)
@@ -146,11 +145,10 @@ namespace HabitRPG.Client
 
             response.EnsureSuccessStatusCode();
         }
-
-        // TODO: Need to fix this to include group ID
-        public async Task SetGroupChatAsSeenAsync()
+        
+        public async Task SetGroupChatAsSeenAsync(string groupId)
         {
-            await HttpClient.PostAsync(String.Format("groups/{0}/chat/seen"), null);
+            await HttpClient.PostAsync(String.Format("groups/{0}/chat/seen", groupId), null);
         }
 
         public async Task<T> UpdateTaskAsync<T>(T taskObj) where T : ITask
