@@ -113,6 +113,11 @@ namespace HabitRPG.Client.Test
         [Test]
         public void Should_return_all_tasks()
         {
+            // Setup
+            var habitTask = CreateHabit();
+            var task = _userClient.CreateTaskAsync(habitTask);
+            task.Wait();
+
             // Action
             var response = _userClient.GetTasksAsync();
             response.Wait();

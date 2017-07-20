@@ -5,12 +5,12 @@ using HabitRPG.Client.Converters;
 
 namespace HabitRPG.Client.Model
 {
-	public class LocalAuthentication
-	{
-		[JsonProperty("username")]
-		public String Username { get; set; }
+    public class LocalAuthentication
+    {
+        [JsonProperty("username")]
+        public String Username { get; set; }
 
-		[JsonProperty("email")]
-		public String Email { get; set; }
-	}
+        [JsonProperty("email")]
+        public String Email { get; set; }
+    }
 }
