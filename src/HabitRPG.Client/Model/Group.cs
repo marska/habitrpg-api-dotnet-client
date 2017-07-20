@@ -19,7 +19,7 @@ namespace HabitRPG.Client.Model
 		public string Description { get; set; }
 
 		[JsonProperty("leader")]
-		public Guid Leader { get; set; }
+		public Member Leader { get; set; }
 
 		[JsonProperty("name")]
 		public string Name { get; set; }
