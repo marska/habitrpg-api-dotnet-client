@@ -5,24 +5,24 @@ using HabitRPG.Client.Converters;
 
 namespace HabitRPG.Client.Model
 {
-	public class Achievements
-	{
-		[JsonProperty("challenges")]
-		public List<string> Challenges { get; set; }
+    public class Achievements
+    {
+        [JsonProperty("challenges")]
+        public List<string> Challenges { get; set; }
 
-		[JsonProperty("perfect")]
-		public int Perfect { get; set; }
+        [JsonProperty("perfect")]
+        public int Perfect { get; set; }
 
-		[JsonProperty("streak")]
-		public int Streak { get; set; }
+        [JsonProperty("streak")]
+        public int Streak { get; set; }
 
-		[JsonProperty("quests")]
-		public Dictionary<string, int> Quests { get; set; }
+        [JsonProperty("quests")]
+        public Dictionary<string, int> Quests { get; set; }
 
-		[JsonProperty("habitBirthdays")]
-		public int HabitBirthdays { get; set; }
+        [JsonProperty("habitBirthdays")]
+        public int HabitBirthdays { get; set; }
 
-		[JsonProperty("habitBirthday")]
-		public bool HabitBirthday { get; set; }
-	}
+        [JsonProperty("habitBirthday")]
+        public bool HabitBirthday { get; set; }
+    }
 }

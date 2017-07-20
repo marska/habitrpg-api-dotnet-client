@@ -2,18 +2,18 @@
 
 namespace HabitRPG.Client.Model
 {
-	public enum Attribute
-	{
-		[EnumMember(Value = "str")]
-		Strength,
+    public enum Attribute
+    {
+        [EnumMember(Value = "str")]
+        Strength,
 
-		[EnumMember(Value = "per")]
-		Perception,
+        [EnumMember(Value = "per")]
+        Perception,
 
-		[EnumMember(Value = "con")]
-		Constitution,
+        [EnumMember(Value = "con")]
+        Constitution,
 
-		[EnumMember(Value = "int")]
-		Intelligence,
-	}
+        [EnumMember(Value = "int")]
+        Intelligence,
+    }
 }

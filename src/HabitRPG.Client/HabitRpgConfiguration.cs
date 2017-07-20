@@ -5,37 +5,37 @@ using Newtonsoft.Json;
 
 namespace HabitRPG.Client
 {
-	public class HabitRpgConfiguration
-	{
-		public HabitRpgConfiguration()
-		{
-			SerializerSettings = new JsonSerializerSettings
-			{
-				Converters = new List<JsonConverter>
-				{
-					new TaskConverter(),
-					new ChallengeConverter(),
-					new TimestampConverter(),
-				},
+    public class HabitRpgConfiguration
+    {
+        public HabitRpgConfiguration()
+        {
+            SerializerSettings = new JsonSerializerSettings
+            {
+                Converters = new List<JsonConverter>
+                {
+                    new TaskConverter(),
+                    new ChallengeConverter(),
+                    new TimestampConverter(),
+                },
 
 #if DEBUG
-				Error = (sender, args) =>
-				{
-					if (System.Diagnostics.Debugger.IsAttached)
-					{
-						System.Diagnostics.Debugger.Break();
-					}
-				}
+                Error = (sender, args) =>
+                {
+                    if (System.Diagnostics.Debugger.IsAttached)
+                    {
+                        System.Diagnostics.Debugger.Break();
+                    }
+                }
 #endif
-			};
-		}
+            };
+        }
 
-		public Guid ApiToken { get; set; }
+        public Guid ApiToken { get; set; }
 
-		public Guid UserId { get; set; }
+        public Guid UserId { get; set; }
 
-		public Uri ServiceUri { get; set; }
+        public Uri ServiceUri { get; set; }
 
-		public JsonSerializerSettings SerializerSettings { get; set; }
-	}
+        public JsonSerializerSettings SerializerSettings { get; set; }
+    }
 }
