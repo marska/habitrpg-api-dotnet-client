@@ -23,7 +23,7 @@ namespace HabitRPG.Client.Model
         public bool CollapseChecklist { get; set; }
 
         [JsonProperty("checklist")]
-        public List<Checklist> Checklist { get; set; }
+        public List<Checklist> Checklist { get; set; } = new List<Checklist>();
 
         [JsonProperty("streak")]
         public double Streak { get; set; }

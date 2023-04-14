@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using HabitRPG.Client.Converters;
 using Newtonsoft.Json;
+using JsonConverter = Newtonsoft.Json.JsonConverter;
 
 namespace HabitRPG.Client
 {
@@ -11,7 +13,7 @@ namespace HabitRPG.Client
         {
             SerializerSettings = new JsonSerializerSettings
             {
-                Converters = new List<JsonConverter>
+                Converters = (IList<JsonConverter>)new List<JsonConverter>
                 {
                     new TaskConverter(),
                     new ChallengeConverter(),
