@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,121 +9,16 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HabitRPG.Client</RootNamespace>
     <AssemblyName>HabitRPG.Client</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFramework>net7.0</TargetFramework>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
-    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
-    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\lib\net451\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\lib\net451\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <NoWarn>
-    </NoWarn>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Common\ClientBase.cs" />
-    <Compile Include="Converters\ChallengeConverter.cs" />
-    <Compile Include="Converters\TaskConverter.cs" />
-    <Compile Include="Converters\TimestampConverter.cs" />
-    <Compile Include="Model\ApiResponse.cs" />
-    <Compile Include="Model\Content.cs" />
-    <Compile Include="Model\Drop.cs" />
-    <Compile Include="Model\Egg.cs" />
-    <Compile Include="Model\Food.cs" />
-    <Compile Include="Model\RandomReward.cs" />
-    <Compile Include="Model\ScoreResult.cs" />
-    <Compile Include="Model\UserDefaults.cs" />
-    <Compile Include="HabitRpgConfiguration.cs" />
-    <Compile Include="Extensions\HttpClientExtension.cs" />
-    <Compile Include="Model\Attribute.cs" />
-    <Compile Include="Model\Broken.cs" />
-    <Compile Include="Model\Buffs.cs" />
-    <Compile Include="Model\Challenge.cs" />
-    <Compile Include="Model\ChatMessage.cs" />
-    <Compile Include="Model\Checklist.cs" />
-    <Compile Include="Model\Contributor.cs" />
-    <Compile Include="Model\Daily.cs" />
-    <Compile Include="Model\Difficulty.cs" />
-    <Compile Include="Model\Direction.cs" />
-    <Compile Include="Model\Gear.cs" />
-    <Compile Include="Model\Group.cs" />
-    <Compile Include="Model\Habit.cs" />
-    <Compile Include="Model\Hair.cs" />
-    <Compile Include="Model\History.cs" />
-    <Compile Include="Model\Item.cs" />
-    <Compile Include="Model\Items.cs" />
-    <Compile Include="Model\Member.cs" />
-    <Compile Include="Model\Preferences.cs" />
-    <Compile Include="Model\Profile.cs" />
-    <Compile Include="Model\Repeat.cs" />
-    <Compile Include="Model\Reward.cs" />
-    <Compile Include="Model\Stats.cs" />
-    <Compile Include="Model\StatsBase.cs" />
-    <Compile Include="Model\Tag.cs" />
-    <Compile Include="Model\Task.cs" />
-    <Compile Include="Model\Todo.cs" />
-    <Compile Include="Model\User.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\Achievements.cs" />
-    <Compile Include="Model\Authentication.cs" />
-    <Compile Include="Model\ContentGear.cs" />
-    <Compile Include="Model\Event.cs" />
-    <Compile Include="Model\LocalAuthentication.cs" />
-    <Compile Include="Model\Quest.cs" />
-    <Compile Include="Model\TimeAuthentication.cs" />
-    <Compile Include="Model\WebHook.cs" />
-    <Compile Include="Converters\GuidConverter.cs" />
-    <Compile Include="Interfaces\IChallengesClient.cs" />
-    <Compile Include="Interfaces\IContentClient.cs" />
-    <Compile Include="Interfaces\IExportClient.cs" />
-    <Compile Include="Interfaces\IGroupsClient.cs" />
-    <Compile Include="Interfaces\IHallClient.cs" />
-    <Compile Include="Interfaces\ILogger.cs" />
-    <Compile Include="Interfaces\IMembersClient.cs" />
-    <Compile Include="Interfaces\IStatusClient.cs" />
-    <Compile Include="Interfaces\IUserClient.cs" />
-    <Compile Include="Clients\ContentClient.cs" />
-    <Compile Include="Clients\GroupsClient.cs" />
-    <Compile Include="Clients\MembersClient.cs" />
-    <Compile Include="Clients\UserClient.cs" />
-    <Compile Include="Clients\StatusClient.cs" />
-    <Compile Include="Model\ServerStatus.cs" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="project.json" />
+    <Folder Include="Properties" />
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
-  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
-    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
-    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
-  </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-  <ItemGroup />
 </Project>
